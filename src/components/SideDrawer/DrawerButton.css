@@ -1,0 +1,41 @@
+.toggleButton{
+    display: flex;
+    height: 20px;
+    width: 15px;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.bar1, .bar2, .bar3 {
+    transition: 0.4s;
+  }
+
+.menuLine{
+    width: 30px;
+    height: 2px;
+    background: #F27127;
+ }
+ .x .bar1 {
+    transform: rotate(-45deg) translate(-8px, 1px);
+   }
+
+ .x .bar2 {
+    transform: translateX(200%);
+ }
+
+ .x .bar3 {
+    transform: rotate(45deg) translate(-8px, -2px);
+}
+.y .bar1 {
+   transform: translateX(200%);
+}
+.y .bar2 {
+   transform: translateX(300%);
+}
+.y .bar3 {
+   transform: translateX(400%);
+}

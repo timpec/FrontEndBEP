@@ -1,0 +1,82 @@
+{
+  "profilePage": {
+    "favoriteOrganizations": "Favorite Organisations",
+    "statistic": "Statistic",
+    "update": "Update",
+    "Achievements": "Saavutukset"
+  },
+  "organizationPage": {
+    "location": "Sijainti",
+    "homepage": "homepage",
+    "meter": "meters"
+  },
+  "testpage": {
+    "header": "Tests",
+    "headerText": "Here you can do different kind of tests"
+  },
+  "navBar": {
+    "profile": "Profile",
+    "mainFeed": "Feed",
+    "organisations": "Organizations",
+    "test": "Quizes",
+    "history": "History",
+    "shop": "shop",
+    "inventory": "inventory"
+  },
+  "generic": {
+    "logOut": "Log out"
+  },
+  "chatbot": {
+    "Greet": "Hi!, How is it going?"
+  },
+  "shop": {
+    "shopTitle": "Shop",
+    "shopMoney": "Money:",
+    "emptyShop": "There are no more items left in the shop. More items will be added soon, so make sure to visit again later!",
+    "chatBotColor": "Chatbot colors",
+    "price": "Price:",
+    "chatBotBgColor": "Chatbot backgrounds",
+    "shopModalBack": "Close",
+    "shopModalBuy": "Buy",
+    "shopNoMoneyError": "You do not have enough money for the item"
+  },
+  "inventory": {
+    "InventoryTitle": "Inventory",
+    "unequip": "Unequip",
+    "equip": "Equip",
+    "chatBotColor": "Chatbot colors",
+    "chatBotBgColor": "Chatbot backgrounds",
+    "emptyInventory": "You have not bought any items yet. Visit the shop page and buy something!",
+    "inventoryModalBack": "Close"
+  },
+  "result": {
+    "congratulationsText1": "congratulations",
+    "congratulationsText2": "for finishing",
+    "reward": "Reward:",
+    "backToMain": "Back to main page"
+  },
+  "login": {
+    "loginError": "Username can not be empty",
+    "title": "Sign in",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "loginText": "Login",
+    "noAccountText": "Not yet registered? Click here"
+  },
+  "register": {
+    "title": "Sign up",
+    "usernameLabel": "Username",
+    "passwordLabel": "Password",
+    "rePasswordLabel": "Retype your password",
+    "emailLabel": "Email",
+    "usernameError": "Username has to be atleast 3 characters long",
+    "emailError": "Invalid email",
+    "notSamePassError": "Passwords do not match",
+    "passLengthError": "Password has to be longer than 8 characters",
+    "registerText": "Register",
+    "alrdyHaveAccountText": "Already registered? Click here"
+  },
+  "history": {
+    "showMore": "Show more"
+  }
+}

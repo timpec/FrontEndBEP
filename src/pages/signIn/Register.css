@@ -1,0 +1,103 @@
+.register_container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.register_box {
+  border-radius: 1%;
+  width: 400px;
+  height: 630px;
+  background-color: #f2f2f2;
+  box-shadow: 0 8px 12px 1px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+}
+
+.register_LogoContainer {
+  text-align: center;
+}
+
+.register_Logo {
+  width: 70px;
+  background: white;
+}
+
+.register_signUpText {
+  text-align: center;
+  color: #f27127;
+  font-size: 2.5em;
+  font-weight: bold;
+}
+
+.register_line {
+  margin-top: 5%;
+  text-align: center;
+  width: 60%;
+  border: 0.5px solid #f2955e;
+}
+
+.register_inputContainers {
+  margin-top: 8%;
+  text-align: center;
+}
+
+.register_inputs {
+  width: 80%;
+  height: 35px;
+  border-radius: 3px;
+  border-style: none;
+  font-size: 1.2em;
+  padding-left: 3%;
+}
+
+.register_btnContainer {
+  margin-top: 8%;
+  text-align: center;
+}
+
+.register_btn {
+  width: 80%;
+  height: 50px;
+  border-radius: 30px;
+  border-style: none;
+  font-size: 1.2em;
+  background-color: #04bfbf;
+  color: white;
+  box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+}
+
+.register_btn:active{
+  vertical-align: top;
+  background-color: #00b6b6;
+  padding: 8px 13px 6px;
+}
+
+.register_inputErrorMsgs {
+  width: 100%;
+  left: 50%;
+  transform: translate(-50%);
+  position: absolute;
+  padding-top: 2px;
+  text-align: center;
+  color: rgb(206, 0, 0);
+  font-weight: 500;
+}
+
+.register_haveAccount {
+  text-align: center;
+}
+
+.register_haveAccountBtn {
+  margin-top: 2%;
+  color: #f2955e;
+  font-size: 1.1em;
+  background-color: transparent;
+  border-style: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .register_box {
+    box-shadow: none;
+    background-color: rgb(255, 255, 255);
+  }
+}

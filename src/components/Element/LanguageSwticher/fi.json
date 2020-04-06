@@ -1,0 +1,82 @@
+{
+  "profilePage": {
+    "favoriteOrganizations": "Suosikki järjestöt",
+    "statistic": "Statistiikkaa",
+    "update": "Päivitä",
+    "Achievements": "Saavutukset"
+  },
+  "organizationPage": {
+    "location": "Sijainti",
+    "homepage": "kotisivu",
+    "meter": "metriä"
+  },
+  "testpage": {
+    "header": "Testejä",
+    "headerText": "Tässä osiossa voit suorittaa erilaisia tehtäviä"
+  },
+  "navBar": {
+    "profile": "Profiili",
+    "mainFeed": "Syöte",
+    "organisations": "Järjestöt",
+    "test": "Testit",
+    "history": "Historia",
+    "shop": "Kauppa",
+    "inventory": "Tavaraluettelo"
+  },
+  "generic": {
+    "logOut": "Kirjaudu Ulos"
+  },
+  "chatbot": {
+    "Greet": "Moikka! Miten menee?"
+  },
+  "shop": {
+    "shopTitle": "Kauppa",
+    "shopMoney": "Rahaa:",
+    "emptyShop": "Kauppa on tyhjä, tule myöhemmin uudelleen. Uusia tavaroita lisätään pian!",
+    "chatBotColor": "Chatbot värit",
+    "price": "Hinta:",
+    "chatBotBgColor": "Chatbot taustakuvat",
+    "shopModalBack": "Takaisin",
+    "shopModalBuy": "Osta",
+    "shopNoMoneyError": "Sinulla ei riitä rahat kyseiseen tuotteeseen"
+  },
+  "inventory": {
+    "InventoryTitle": "Tavaraluettelo",
+    "unequip": "Pois käytöstä",
+    "equip": "Käytä",
+    "chatBotColor": "Chatbot värit",
+    "chatBotBgColor": "Chatbot taustakuvat",
+    "emptyInventory": "Et ole vielä ostanut tavaroita. Käy kauppa sivulla ostamassa jotain!",
+    "inventoryModalBack": "Takaisin"
+  },
+  "result": {
+    "congratulationsText1": "Onneksi olkoon",
+    "congratulationsText2": "teit tehtävän",
+    "reward": "Palkinto:",
+    "backToMain": "Takaisin etusivulle"
+  },
+  "login": {
+    "loginError": "Käyttäjänimi ei voi olla tyhjä",
+    "title": "Kirjautuminen",
+    "usernameLabel": "Käyttäjänimi",
+    "passwordLabel": "Salasana",
+    "loginText": "Kirjaudu",
+    "noAccountText": "Rekisteröidy klikkaamalla tästä"
+  },
+  "register": {
+    "title": "Rekisteröityminen",
+    "usernameLabel": "Käyttäjänimi",
+    "passwordLabel": "Salasana",
+    "emailLabel": "Sähköposti",
+    "rePasswordLabel": "Kirjoita salasana uudelleen",
+    "usernameError": "Käyttäjänimen pitää olla vähintään 3 merkkiä",
+    "emailError": "Kelpaamaton sähköposti",
+    "notSamePassError": "Salasanat eivät täsmää",
+    "passLengthError": "Salasanan pitää olla yli 8 merkkiä pitkä",
+    "registerText": "Rekisteröidy",
+    "alrdyHaveAccountText": "Jos sinulla on jo käyttäjä, klikkaa tästä"
+  },
+  "history": {
+    "showMore": "Näytä lisää"
+  }
+}

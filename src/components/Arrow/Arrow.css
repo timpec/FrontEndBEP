@@ -1,0 +1,36 @@
+.arrowButton {
+    display: flex;
+    height: 13px;
+    width: 15px;
+    flex-direction: column;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+.arrowLine {
+    width: 17px;
+    height: 2px;
+    background: #F27127;
+}
+.Xanim{
+    transition: 0.4s;
+}
+.arr1 {
+    transition: 0.4s;
+    transform: rotate(45deg)
+}
+.arr2 {
+    transition: 0.4s;
+    transform: rotate(-45deg)
+}
+.Xanim .arr1{
+    transition: 0.4s;
+    transform: rotate(-45deg) translate(-6px, 0.5px);
+}
+
+.Xanim .arr2{
+    transition: 0.4s;
+    transform: rotate(45deg) translate(-7px, -2px);
+}

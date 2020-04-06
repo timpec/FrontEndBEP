@@ -1,0 +1,51 @@
+ .sideDrawer{
+    height: 100%;
+    background: rgba(255, 255, 255);
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 50%;
+    max-width: 350px;
+    z-index: 200;
+    transform: translateX(200%);
+    transition: transform 0.3s ease-out;
+}
+
+.sideDrawer.open{
+    transform: translateX(100%);
+}
+.sideDrawer ul{
+    height: 80%;
+    margin-top: 4rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+.sideDrawer li{
+    margin: 1.2rem 0;
+}
+.first {
+    margin-top: 10rem;
+}
+.sideDrawer a{
+    font-size: 1.2rem;
+    color: saddlebrown;
+    text-decoration: none;
+}
+.sideDrawer a:active{
+    color: red;
+}
+.profileCorner img{
+    margin-top: 10%;
+    margin-left: 5%;
+    width: 70%;
+
+}
+.profileCorner p{
+    margin-left: 18%;
+}
+
+.profileCorner button{
+    margin-left: 10%;
+}
