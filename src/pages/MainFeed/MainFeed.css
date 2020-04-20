@@ -1,0 +1,9 @@
+.align-center {
+    display: flex;
+    text-align: center;
+  }
+
+  .MainFeedImage {
+    width: 100%; /* Set a small width */
+  }
+

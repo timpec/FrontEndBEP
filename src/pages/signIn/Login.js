@@ -36,7 +36,7 @@ export default function Login() {
 
   // Handles redirection to feed page
   if (redirect) {
-    return <Redirect push to="/feed" />;
+    return <Redirect push to="/MainFeed" />;
   }
 
   // Handles redirection to register page
