@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
+import { Redirect } from "react-router-dom";
 
 import Image from 'react-bootstrap/Image';
 import "./MainFeed.css";
@@ -16,6 +17,8 @@ const client = new ApolloClient({
 export default function MainFeed(props) {
   const [events, updateEvents] = React.useState([]);
   const [todayEvents, updateTodayEvents] = React.useState([]);
+  const [eventId, setEventId] = React.useState("");
+  const [detailPage, setdetailPage] = React.useState(false);
 
 useEffect(() => {
   const getData = async () => { 
@@ -26,6 +29,11 @@ useEffect(() => {
   }
   getData();
 });
+const redirectToDetailPage = (id) => {
+  console.log(id)
+  setEventId(id);
+  setdetailPage(true);
+}
 
 const getSearch = async () => {
   let string = document.getElementById("MainFeedInput").value
@@ -33,12 +41,16 @@ const getSearch = async () => {
   updateEvents(data);
 }
 
+
 return (
+
     <div className="p-1">
+{detailPage ? <Redirect push to={"/DetailPage/"+eventId}/> : <div></div>} />
+
       <h3  className="align-self-center">This week:</h3>
       <div className="d-flex p-1 justify-content-around">
       {todayEvents.map(item => (
-          <Image className="MainFeedThumbNail" onClick={props.handleClick} key={item.id}  src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
+          <Image className="MainFeedThumbNail" onClick={() => {redirectToDetailPage(item.id)}} key={item.id}  src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
         ))}
       
       </div>
@@ -48,7 +60,7 @@ return (
       <ul className="list-group">
       {events.map(item => (
         <li className="list-group-item" key={item.id}>
-        <div className="list-group-item" onClick={(() => {})}>
+        <div className="list-group-item" onClick={() => {redirectToDetailPage(item.id)}}>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
           <h5>{item.name.fi}</h5>
           <div className="d-flex flex-row bd-highlight mb-3">
