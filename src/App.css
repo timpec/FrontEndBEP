@@ -1,5 +1,12 @@
+@font-face {
+  font-family: 'quicksand';
+  src: url(./quicksand-light.woff2) format('woff2')
+}
+
+body {
+  font-family: "quicksand", quicksand; 
+}
 html{
-  
 }
 .App {
   text-align: center;

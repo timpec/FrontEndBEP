@@ -1,3 +1,8 @@
+@font-face {
+  font-family: quicksand;
+  src: url(./quicksand-light.woff2)
+}
+
 html {
   height: 100%;
 }
@@ -13,6 +18,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: quicksand;
 }

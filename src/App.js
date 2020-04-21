@@ -1,67 +1,49 @@
 import React from "react";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Toolbar from "./components/Toolbar/Toolbar";
+import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/signIn/Login";
 import Register from "./pages/signIn/Register";
 import MainFeed from "./pages/MainFeed/MainFeed";
-import SideDrawer from "./components/SideDrawer/SideDrawer";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import DetailPage from "./pages/DetailPage/DetailPage";
 import BackDrop from "./components/BackDrop/Backdrop";
+import Navbar from "react-bootstrap/Navbar";
+import {useRoutes, A, navigate} from 'hookrouter';
+import Nav from "react-bootstrap/Nav";
 
+  export default function App() {  
 
-class App extends React.Component {
-  state = {
-    sideDrawer: false,
-    noNav: true,
-  };
-
-  drawerToggleClickHandler = () => {
-    this.setState(prevState => {
-      return { sideDrawer: !prevState.sideDrawer };
-    });
-  };
-
-  render() {
-    let backDrop;
-
-    if (this.state.sideDrawer) {
-      backDrop = (
-        <BackDrop drawerToggleClickHandler={this.drawerToggleClickHandler} />
-      );
+    const changeRoute = (route,data) => {
+      navigate('/'+route + data ? '/'+data : "");
     }
-    return (
-      <Router>
-        <div style={{ height: "100%" }}>
-          <Toolbar
-            show={this.state.noNav}
-            showX={this.state.sideDrawer}
-            drawClickHandler={this.drawerToggleClickHandler}
-          />
-          <SideDrawer
-            closeDraw={this.drawerToggleClickHandler}
-            show={this.state.sideDrawer}
-          />
-          ;
-          {backDrop}
-          <main style={{ marginTop: "64px" }}>
-            <Route exact path="/">
-              <Login />
-            </Route>
-            <Route path="/login" component={Login}>
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />           
-            </Route>
-            <Route path="/MainFeed">
-              <MainFeed />           
-            </Route>
-          </main>
-        </div>
-      </Router>
-    );
-  }
-}
 
-export default App;
+    const handleClick= () => {
+      console.log("here")
+    }
+
+    const routes = {
+      "/": () => <Login />,
+      "/register": () => <Register />,
+      "/MainFeed": () => <MainFeed props={handleClick}/>,
+      "/DetailPage": ({id}) => <DetailPage id={id}/>,
+      "/Login": () => <Login />
+  
+    };
+    const routeResult = useRoutes(routes);
+
+    return <div style={{ height: "100%" }}>
+          <Navbar bg="light" expand="lg">
+            <Navbar.Brand href="#home">Helmet</Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="mr-auto">
+                <Nav.Link href="/MainFeed">Main Feed</Nav.Link>
+                <Nav.Link href="/Map">Map</Nav.Link>
+                <Nav.Link href="/Friends">Friends</Nav.Link>
+                <Nav.Link href="/profile">Profiili</Nav.Link>
+                <Nav.Link href="/Login">Log out</Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Navbar>
+          {routeResult}
+          </div>
+}
