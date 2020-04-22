@@ -1,8 +1,12 @@
 import React, { useEffect } from "react";
 import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { Redirect } from "react-router-dom";
-
+import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Button from 'react-bootstrap/Button';
+
 import "./MainFeed.css";
 import moment from "moment"
 
@@ -41,12 +45,21 @@ const getSearch = async () => {
   updateEvents(data);
 }
 
+const popover = (tags) => {
+  return (<Popover id="popover-positioned-bottom">
+    <Popover.Content>
+    {tags.map(item => (
+      <p>{item.name}</p>
+    )
+    )}
+    </Popover.Content>
+  </Popover>
+  )};
 
 return (
 
     <div className="p-1">
-{detailPage ? <Redirect push to={"/DetailPage/"+eventId}/> : <div></div>} />
-
+      {detailPage ? <Redirect push to={"/DetailPage/"+eventId}/> : <div></div>}
       <h3  className="align-self-center">This week:</h3>
       <div className="d-flex p-1 justify-content-around">
       {todayEvents.map(item => (
@@ -60,25 +73,24 @@ return (
       <ul className="list-group">
       {events.map(item => (
         <li className="list-group-item" key={item.id}>
-        <div className="list-group-item" onClick={() => {redirectToDetailPage(item.id)}}>
-        <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
+        <div className="list-group-item">
+        <img className="MainFeedImage rounded mx-auto d-block" onClick={() => {redirectToDetailPage(item.id)}} alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
           <h5>{item.name.fi}</h5>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
           <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(10, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).subtract(10, 'days').calendar() }</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
+                    
           <div className="d-flex justify-content-around">
             {item.tags[0].name ? 
-              <div className="card p-2 m-1 bd-highlight">{item.tags[0].name}</div>:
-              <div></div>
+              <Badge pill variant="secondary">{item.tags[0].name}</Badge>:<div></div>
           }
-          {item.tags[0].name ? 
-              <div className="card p-2 m-1 bd-highlight">{item.tags[1].name}</div>:
-              <div></div>
+          {item.tags[1].name ? 
+              <Badge pill variant="secondary">{item.tags[1].name}</Badge>:<div></div>
           }
-          {item.tags[0].name ? 
-              <div className="card p-2 m-1 bd-highlight">{item.tags[2].name}</div>:
-              <div></div>
+           {item.tags[2].name ? 
+           <OverlayTrigger trigger="click" placement="bottom" overlay={(popover(item.tags.slice(2)))}>
+              <Badge pill variant="secondary">{item.tags.length -2 + " more"}</Badge></OverlayTrigger>:<div></div>
           }
           </div>
           </div>
