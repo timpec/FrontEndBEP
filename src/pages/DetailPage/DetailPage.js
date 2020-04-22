@@ -52,22 +52,29 @@ return (
           </div>
         </Tab>
         <Tab eventKey="weather" title={<img alt="weather" src={require("../../assets/cloud.svg")}/>}>
-          <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
             {item.event_dates.weather.map((daysWeather) => (
-                <div key={daysWeather.ts} className="justify-content-around p-3 ">
+                <div key={daysWeather.ts} className="d-flex w-auto flex-row justify-content-between bd-highlight p-3 ">
                 <div className="p-1 bd-highlight">{moment(new Date(parseInt(daysWeather.ts * 1000)).toString()).subtract(0, 'days').calendar()}</div>
-                <div>         </div>
+                <div className="d-flex flex-column bd-highlight mb-3">
+                <img alt="weather" className="imageIcon" height="30" width="30" id="imageIcon" src={"https://www.weatherbit.io/static/img/icons/"+daysWeather.weather.icon+".png"}></img>
                 <h5 className="p-1 bd-highlight">{daysWeather.temp+ "°C"}</h5>
                 </div>
+                </div>
             ))}
-          </div>
           </div>
         </Tab>
         <Tab eventKey="map" title={<img alt="Map to the place" src={require("../../assets/map.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
           <div className="p-2 bd-highlight">more info</div>
+          </div>
+          </div>
+        </Tab>
+        <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
+          <div className="d-flex flex-row bd-highlight mb-3">
+          <div className="d-flex flex-column bd-highlight mb-3">
+          
           </div>
           </div>
         </Tab>
@@ -124,6 +131,16 @@ const getEvent = (id) => {
         location {
           lat
           lon
+          plan {
+            itineraries {
+              startTime
+              legs {
+                mode
+                distance
+                startTime
+              }
+            }
+          }
           address {
             street_address
           }
@@ -141,6 +158,9 @@ const getEvent = (id) => {
           weather(city:"Espoo") {
             temp
             ts
+            weather{
+              icon
+            }
           }
         }
       }
