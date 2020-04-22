@@ -25,7 +25,7 @@ useEffect(() => {
     updateEvent(data);
   }
   getData();
-}, []);
+}, [id]);
 
 return ( 
 <div>
@@ -34,11 +34,11 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="weather" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
         <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(10, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).subtract(10, 'days').calendar() }</div>
+          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).calendar() }</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
           <div className="p-2 bd-highlight">more info</div>
           </div>
@@ -54,7 +54,13 @@ return (
         <Tab eventKey="weather" title={<img alt="weather" src={require("../../assets/cloud.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">more info</div>
+            {item.event_dates.weather.map((daysWeather) => (
+                <div key={daysWeather.ts} className="justify-content-around p-3 ">
+                <div className="p-1 bd-highlight">{moment(new Date(parseInt(daysWeather.ts * 1000)).toString()).subtract(0, 'days').calendar()}</div>
+                <div>         </div>
+                <h5 className="p-1 bd-highlight">{daysWeather.temp+ "°C"}</h5>
+                </div>
+            ))}
           </div>
           </div>
         </Tab>
@@ -129,12 +135,13 @@ const getEvent = (id) => {
             url
           }
         }
-        tags {
-          name
-        }
         event_dates {
           starting_day
           ending_day
+          weather(city:"Espoo") {
+            temp
+            ts
+          }
         }
       }
     }

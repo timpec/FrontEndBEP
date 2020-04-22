@@ -5,7 +5,6 @@ import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Button from 'react-bootstrap/Button';
 
 import "./MainFeed.css";
 import moment from "moment"
