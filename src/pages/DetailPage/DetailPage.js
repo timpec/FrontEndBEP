@@ -131,13 +131,15 @@ const getEvent = (id) => {
         location {
           lat
           lon
-          plan {
-            itineraries {
-              startTime
-              legs {
-                mode
-                distance
+          route(lat: 60.220127, lon:24.785761) {
+            plan {
+              itineraries {
                 startTime
+                legs {
+                  mode
+                  distance
+                  startTime
+                }
               }
             }
           }
