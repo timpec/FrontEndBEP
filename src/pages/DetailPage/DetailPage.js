@@ -13,7 +13,7 @@ export default function MainFeed() {
 
 useEffect(() => {
   const getData = async () => { 
-    let data = await getEvent(id);
+    let data = await getDetailedEvent(id);
     console.log(data);
     updateEvent(data);
   }
