@@ -1,21 +1,13 @@
 import React, { useEffect } from "react";
-import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { Redirect } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import {getTodayEvents, getEvents} from '../../services/graphqlService';
 
 import "./MainFeed.css";
 import moment from "moment"
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: 'http://localhost:3001/Graphql',
-  })
-});
-
 
 export default function MainFeed(props) {
   const [events, updateEvents] = React.useState([]);
@@ -102,64 +94,6 @@ return (
   );
 }
 
-const getTodayEvents = () => { 
-
-  return client.query({
-    query: gql`
-    {
-      events(today: true) {
-        id
-        description{
-          images {
-            url
-          }
-        }
-      }
-    }
-    `
-  })
-  .then(result => {
-    return(result.data.events)
-  });
-}
-
-
-const getEvents = (string) => { 
-  return client.query({
-    query: gql`
-    {
-      events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 2"}) {
-        id
-        name {
-          fi
-        }
-        location {
-          lat
-          lon
-          address {
-            street_address
-          }
-        }
-        description{
-          images {
-            url
-          }
-        }
-        tags {
-          name
-        }
-        event_dates {
-          starting_day
-          ending_day
-        }
-      }
-    }
-    `
-  })
-  .then(result => {
-    return(result.data.events)
-  });
-}
 /*
 
 <div className="d-flex flex-column bd-highlight mb-1">

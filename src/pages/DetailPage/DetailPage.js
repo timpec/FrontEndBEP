@@ -1,18 +1,11 @@
 import React, { useEffect } from "react";
-import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { useParams } from "react-router-dom";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
+import {getDetailedEvent} from '../../services/graphqlService';
 
 import moment from "moment"
-
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  link: new HttpLink({
-    uri: 'http://localhost:3001/Graphql',
-  })
-});
 
 export default function MainFeed() {
   const {id} = useParams();
@@ -34,7 +27,7 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="weather" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
         <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
@@ -74,7 +67,6 @@ return (
         <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          
           </div>
           </div>
         </Tab>
@@ -116,61 +108,4 @@ return (
   </Tab>
 </Tabs>
  */
-
-const getEvent = (id) => { 
-
-  return client.query({
-    query: gql`
-    {
-      event(name: \"${id}\") {
-        id
-        name {
-          fi
-        }
-        info_url
-        location {
-          lat
-          lon
-          route(lat: 60.220127, lon:24.785761) {
-            plan {
-              itineraries {
-                startTime
-                legs {
-                  mode
-                  distance
-                  startTime
-                }
-              }
-            }
-          }
-          address {
-            street_address
-          }
-        }
-        description{
-          intro
-          body
-          images {
-            url
-          }
-        }
-        event_dates {
-          starting_day
-          ending_day
-          weather(city:"Espoo") {
-            temp
-            ts
-            weather{
-              icon
-            }
-          }
-        }
-      }
-    }
-    `
-  })
-  .then(result => {
-    return(result.data.event)
-  });
-}
 
