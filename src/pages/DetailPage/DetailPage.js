@@ -6,7 +6,6 @@ import Button from 'react-bootstrap/Button';
 import {getDetailedEvent} from '../../services/graphqlService';
 import Map from '../../components/Map/map.gl'
 import moment from "moment"
-
 export default function MainFeed() {
   const {id} = useParams();
   const [event, updateEvent] = React.useState([]);
@@ -25,12 +24,12 @@ return (
         <li className="list-group-item p-0" key={item.id}>
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
-        <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
+        <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
         <Tabs defaultActiveKey="routes" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
         <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).calendar() }</div>
+          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar() +""+ (item.event_dates.ending_day ? "-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).calendar() : "")}</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
           <div className="p-2 bd-highlight">more info</div>
           </div>

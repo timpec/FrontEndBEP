@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import {getTodayEvents, getEvents} from '../../services/graphqlService';
@@ -23,18 +24,23 @@ useEffect(() => {
     updateTodayEvents(data1);
   }
   getData();
-});
+},[todayEvents]);
+
 const redirectToDetailPage = (id) => {
-  console.log(id)
   setEventId(id);
   setdetailPage(true);
 }
 
 const getSearch = async () => {
   let string = document.getElementById("MainFeedInput").value
-  let data = await getEvents(string);
-  updateEvents(data);
-}
+  if(string.length >= 3) {
+    let data = await getEvents(string);
+    updateEvents(data);
+  } else if(string.length === 0) {
+    let data = await getEvents();
+    updateEvents(data);
+  }
+  }
 
 const popover = (tags) => {
   return (<Popover id="popover-positioned-bottom">
@@ -58,18 +64,18 @@ return (
         ))}
       
       </div>
-      <div className="md-form mt-0">
-      <input className="form-control" type="text" id="MainFeedInput" onChange={(() => {getSearch()})} placeholder="Search" aria-label="Search"/>
+      <div className="md-form mt-0 d-flex flex-row">
+      <input className="form-control" onChange={(() => {getSearch()})} type="text" id="MainFeedInput" placeholder="Search" aria-label="Search"/>
       </div>
       <ul className="list-group">
       {events.map(item => (
         <li className="list-group-item" key={item.id}>
         <div className="list-group-item">
-        <img className="MainFeedImage rounded mx-auto d-block" onClick={() => {redirectToDetailPage(item.id)}} alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
+        <img className="MainFeedImage rounded mx-auto d-block" onClick={() => {redirectToDetailPage(item.id)}} alt="Event" src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
           <h5>{item.name.fi}</h5>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).subtract(0, 'days').calendar() }</div>
+          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar() +""+ (item.event_dates.ending_day ? "-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).calendar() : "")}</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
                     
           <div className="d-flex justify-content-around">

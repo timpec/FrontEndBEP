@@ -1,6 +1,7 @@
 import React from "react";
 import ReactMapboxGl, { Marker, Popup } from "react-mapbox-gl";
 import marker from '../../assets/marker.png'
+import { events } from "react-mapbox-gl/lib/map-events";
 const Mapbox = ReactMapboxGl({
   accessToken:
     process.env.REACT_APP_MAPBOX_API,
@@ -8,8 +9,7 @@ const Mapbox = ReactMapboxGl({
 
 export default function Map(event) {
     const [popup, showPopup] = React.useState(false);
-    console.log(event.props)
-    if(event) {
+    if(event.props) {
         return (
             <Mapbox
               style="mapbox://styles/mapbox/navigation-preview-day-v4"
@@ -42,6 +42,18 @@ export default function Map(event) {
               </Marker>
             </Mapbox>
           );
+    } else if(events.events) {
+      return (
+        <Mapbox
+          style="mapbox://styles/mapbox/navigation-preview-day-v4"
+          containerStyle={{
+            height: "100vh",
+            width: "100vw",
+          }}>
+
+          {}
+        </Mapbox>
+      );
     } else {
         return (
             <Mapbox
