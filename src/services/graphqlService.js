@@ -7,6 +7,36 @@ const client = new ApolloClient({
     })
   });
 
+  export const getExampleRoutes = () => { 
+
+    return client.query({
+      query: gql`
+      {
+        route(
+          fromLat:60.220127,
+          fromLon:24.795761,
+          toLat:60.220127,
+          toLon:24.785761,
+          routeNumber: 2) {
+              plan {
+                
+                itineraries {
+                  duration
+                  legs {
+                    mode
+                    distance
+                  }
+                }
+              }
+          }
+      }
+      `
+    })
+    .then(result => {
+      return(result.data.events)
+    });
+  }
+
   export const getTodayEvents = () => { 
 
     return client.query({
@@ -32,7 +62,7 @@ const client = new ApolloClient({
     return client.query({
       query: gql`
       {
-        events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 2"}) {
+        events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 10"}) {
           id
           name {
             fi
@@ -65,8 +95,7 @@ const client = new ApolloClient({
     });
   }
   
-  export const getDetailedEvent = (id) => { 
-
+  export const getDetailedEvent = (id, time) => { 
     return client.query({
       query: gql`
       {
@@ -79,10 +108,12 @@ const client = new ApolloClient({
           location {
             lat
             lon
-            route(lat: 60.220127, lon:24.785761) {
+            route(fromLat:60.220127, fromLon:24.795761) {
               plan {
                 itineraries {
                   startTime
+                  endTime
+                  duration
                   legs {
                     mode
                     distance

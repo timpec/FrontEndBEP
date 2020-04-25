@@ -12,10 +12,12 @@
     "hookrouter": "^1.2.3",
     "i18next": "^18.0.1",
     "i18next-browser-languagedetector": "^4.0.0",
+    "mapbox-gl": "^1.9.1",
     "moment": "^2.24.0",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.11.0",
+    "react-mapbox-gl": "^4.8.3",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "styled-components": "^4.4.1"

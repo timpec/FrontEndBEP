@@ -69,7 +69,7 @@ return (
           <h5>{item.name.fi}</h5>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(10, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).subtract(10, 'days').calendar() }</div>
+          <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar()+"-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).subtract(0, 'days').calendar() }</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
                     
           <div className="d-flex justify-content-around">

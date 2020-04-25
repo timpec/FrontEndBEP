@@ -4,7 +4,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
 import {getDetailedEvent} from '../../services/graphqlService';
-
+import Map from '../../components/Map/map.gl'
 import moment from "moment"
 
 export default function MainFeed() {
@@ -13,8 +13,7 @@ export default function MainFeed() {
 
 useEffect(() => {
   const getData = async () => { 
-    let data = await getDetailedEvent(id);
-    console.log(data);
+    let data = await getDetailedEvent(id, moment(new Date()).startOf('day').format('hh:mm:ss'));
     updateEvent(data);
   }
   getData();
@@ -27,7 +26,7 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="routes" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
         <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
@@ -59,16 +58,28 @@ return (
         </Tab>
         <Tab eventKey="map" title={<img alt="Map to the place" src={require("../../assets/map.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
-          <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">more info</div>
-          </div>
+            {item.location.lat && item.location.lon ? 
+              <Map props={item}/>
+              : <div><h3>Ei Paikkaa määritelty</h3></div>
+            }
           </div>
         </Tab>
         <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
-          <div className="d-flex flex-row bd-highlight mb-3">
-          <div className="d-flex flex-column bd-highlight mb-3">
-          </div>
-          </div>
+          <h5 className="p-2 bd-highlight">Example routes currently</h5>
+          <ul className="list-group">
+          {item.location.route.plan.itineraries.map((route) => (
+            <div  key={Math.random(0,100)} className="card border-primary flex-column bd-highlight mb-1 list-group-item">  
+            <p>{Math.round(route.duration / 60)} minutes</p>
+            {route.legs.map((leg) => (
+              <div key={Math.random(0,100)} className="d-flex flex-row bd-highlight mb-3">
+                <p className="p-2 bd-highlight">{leg.mode}</p>
+                <p className="p-2 bd-highlight">{Math.round(leg.distance)} meters</p>
+
+              </div>
+            ))}
+            </div>
+          ))}
+            </ul>
         </Tab>
         <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/notReserved.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
@@ -81,7 +92,13 @@ return (
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
           <div className="p-2 bd-highlight">
-          <Button variant="primary" target="_blank" href={item.info_url}>Website</Button>
+            {
+            item.info_url ? 
+            <Button variant="primary" target="_blank" href={item.info_url}>Website</Button>
+              :<div>
+               <div className="p-2 bd-highlight">No link provided</div>
+              </div>
+            }
           </div>
           </div>
           </div>
