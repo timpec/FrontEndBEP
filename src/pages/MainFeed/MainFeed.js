@@ -73,13 +73,13 @@ return (
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
                     
           <div className="d-flex justify-content-around">
-            {item.tags[0].name ? 
+            {item.tags[0] ? 
               <Badge pill variant="secondary">{item.tags[0].name}</Badge>:<div></div>
           }
-          {item.tags[1].name ? 
+          {item.tags[1] ? 
               <Badge pill variant="secondary">{item.tags[1].name}</Badge>:<div></div>
           }
-           {item.tags[2].name ? 
+           {item.tags[2] ? 
            <OverlayTrigger trigger="click" placement="bottom" overlay={(popover(item.tags.slice(2)))}>
               <Badge pill variant="secondary">{item.tags.length -2 + " more"}</Badge></OverlayTrigger>:<div></div>
           }
