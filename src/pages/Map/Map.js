@@ -1,11 +1,11 @@
 import React from "react";
+import Mapbox from '../../components/Map/map.gl'
 
 export default function Map() {
 
-
     return (
         <div>
-            <h1>Paska kartta</h1>
+            <Mapbox/>
         </div>
     )
 }

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import ReactMapboxGl, { Layer, Feature, Marker, Popup } from "react-mapbox-gl";
+import React from "react";
+import ReactMapboxGl, { Marker, Popup } from "react-mapbox-gl";
 import marker from '../../assets/marker.png'
 const Mapbox = ReactMapboxGl({
   accessToken:
-    "",
+    process.env.REACT_APP_MAPBOX_API,
 });
 
 export default function Map(event) {
@@ -50,11 +50,6 @@ export default function Map(event) {
                 height: "100vh",
                 width: "100vw",
               }}>
-
-              <Layer type="symbol" id="marker" layout={{ "icon-image": "marker-15" }}>
-                <Feature
-                  coordinates={[event.props.location.lon, event.props.location.lat]}/>
-              </Layer>
     
             </Mapbox>
           );

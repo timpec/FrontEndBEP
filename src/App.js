@@ -14,8 +14,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 export default function App() {
-
-    return (
+  return (
       <Router>
         <div style={{ height: "100%" }}>
           <Navbar bg="light" expand="lg">
