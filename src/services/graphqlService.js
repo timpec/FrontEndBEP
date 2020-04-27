@@ -152,3 +152,55 @@ const client = new ApolloClient({
       return(result.data.event)
     });
   }
+  
+
+  export const postLogin = (username, password) => { 
+    return client.query({
+      query: gql`
+      {
+        userLogin 
+        (username:"${username}" password: "${password}") {
+          id
+          token
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.userLogin
+      console.log(usr)
+      localStorage.setItem('userid', usr.id)
+      localStorage.setItem('token', usr.token)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const postRegister = (username, password, address, email) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserRegister (
+          username: "${username}"
+          password: "${password}"
+          email: "${email}"
+          address: "${address}"
+        ) {id token}
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserRegister
+      console.log(usr)
+      localStorage.setItem('userid', usr.id)
+      localStorage.setItem('token', usr.token)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }

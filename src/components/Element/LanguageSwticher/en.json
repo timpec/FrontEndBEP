@@ -56,7 +56,7 @@
     "backToMain": "Back to main page"
   },
   "login": {
-    "loginError": "Username can not be empty",
+    "loginError": "Incorrect credentials",
     "title": "Sign in",
     "usernameLabel": "Username",
     "passwordLabel": "Password",
@@ -67,14 +67,16 @@
     "title": "Sign up",
     "usernameLabel": "Username",
     "passwordLabel": "Password",
-    "rePasswordLabel": "Retype your password",
+    "addressLabel": "Street address",
     "emailLabel": "Email",
     "usernameError": "Username has to be atleast 3 characters long",
     "emailError": "Invalid email",
     "notSamePassError": "Passwords do not match",
     "passLengthError": "Password has to be longer than 8 characters",
     "registerText": "Register",
-    "alrdyHaveAccountText": "Already registered? Click here"
+    "alrdyHaveAccountText": "Already registered? Click here",
+    "registerError": "Username not permitted",
+    "registerErrorEmail": "Email format incorrect"
   },
   "history": {
     "showMore": "Show more"

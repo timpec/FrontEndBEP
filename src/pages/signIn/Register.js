@@ -3,49 +3,23 @@ import { Redirect } from "react-router-dom";
 import { TextField } from "@material-ui/core";
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Register.css";
+import {postRegister} from "../../services/graphqlService"
 
 export default function Register(props) {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
 
-  const [usernameErrorMsgBoolean, setUsernameErrorMsgBoolean] = useState(false);
   const [emailErrorMsgBoolean, setEmailErrorMsgBoolean] = useState(false);
-  const [passwordErrorMsgBoolean, setPasswordErrorMsgBoolean] = useState(false);
-
-  const [usernameErrorMsg, setUsernameErrorMsg] = useState("");
   const [emailErrorMsg, setEmailErrorMsg] = useState("");
-  const [passwordErrorMsg, setPasswordErrorMsg] = useState("");
-
-  const [validUsername, setValidUsername] = useState(false);
   const [validEmail, setValidEmail] = useState(false);
+  const [registerErrorMsg, setRegisterErrorMsg] = useState(""); 
 
   const [redirectFeed, changeRedirectFeed] = useState(false);
   const [redirectLogin, changeRedirectLogin] = useState(false);
 
-  // Removes username error message when user has typed more than 3 characters in the username field
-  function onUsernameChange(username) {
-    setUsername(username.target.value);
-    if (username.target.value.length >= 3) {
-      setUsernameErrorMsg("");
-    }
-  }
-
-  // Checks that the username is over 3 characters
-  function validUsernameCheck() {
-    if (username.length < 3) {
-      setUsernameErrorMsg(I18n.t("register.usernameError"));
-      setValidUsername(false);
-      setUsernameErrorMsgBoolean(true);
-    } else {
-      setValidUsername(true);
-      setUsernameErrorMsgBoolean(false);
-    }
-  }
-
-  // Checks that the email is in valid format
-  function validEmailCheck() {
+  const validEmailCheck = () => {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (regexp.test(email) !== true) {
       setEmailErrorMsg(I18n.t("register.emailError"));
@@ -58,51 +32,30 @@ export default function Register(props) {
     }
   }
 
-  // Checks that the passwords are same and that the passowrd is longer than 8 character
-  function passwordCheck() {
-    if (password !== rePassword) {
-      setPasswordErrorMsg(I18n.t("register.notSamePassError"));
-      setPasswordErrorMsgBoolean(true);
-      return false;
-    } else {
-      setPasswordErrorMsg("");
-      if (password.length < 8) {
-        setPasswordErrorMsgBoolean(true);
-        setPasswordErrorMsg(I18n.t("register.passLengthError"));
-        return false;
+  const registerAttempt = async () => {
+    if (validEmail === true) {
+      console.log(username,password,address,email)
+      const user = await postRegister(username,password,address,email)
+      if (user === true) {
+        console.log("true")
+        redirectToMain()
       } else {
-        setPasswordErrorMsgBoolean(false);
-        return true;
+        setRegisterErrorMsg(I18n.t("register.registerError"));
       }
-    }
-  }
-
-  // Validates register form
-  function validateForm() {
-    passwordCheck();
-    validUsernameCheck();
-    validEmailCheck();
-    if (
-      validEmail === true &&
-      passwordCheck() === true &&
-      validUsername === true
-    ) {
-      changeRedirectFeed(true);
     } else {
+      setRegisterErrorMsg(I18n.t("register.registerErrorEmail"));
     }
   }
 
-  // Changes redirection for login page to true
-  function redirectToLogin() {
+  const redirectToLogin = () => {
     changeRedirectLogin(true);
   }
-
-  // Handles navigation for feed page
-  if (redirectFeed) {
-    return <Redirect push to="/feed" />;
+  const redirectToMain = () => {
+    changeRedirectFeed(true);
   }
-
-  // Handles navigation for login page
+  if (redirectFeed) {
+    return <Redirect push to="/MainFeed" />;
+  }
   if (redirectLogin) {
     return <Redirect push to="/login" />;
   }
@@ -116,6 +69,9 @@ export default function Register(props) {
         <div className="register_signUpText">{I18n.t("register.title")}</div>
 
         <hr className="register_line"></hr>
+        <div className="error_alert">
+          <h5>{registerErrorMsg}</h5>
+        </div>
 
         <div className="register_inputContainers">
           <TextField
@@ -125,10 +81,7 @@ export default function Register(props) {
             name="username"
             placeholder={I18n.t("register.usernameLabel")}
             maxLength={20}
-            onBlur={validUsernameCheck}
-            onChange={onUsernameChange}
-            error={usernameErrorMsgBoolean}
-            helperText={usernameErrorMsg}
+            onChange={username => setUsername(username.target.value)}
             InputLabelProps={{ style: { fontSize: 20 } }}
           />
         </div>
@@ -151,6 +104,19 @@ export default function Register(props) {
 
         <div className="register_inputContainers">
           <TextField
+            label={I18n.t("register.addressLabel")}
+            className="register_inputs"
+            type="text"
+            name="address"
+            value={address}
+            onChange={address => setAddress(address.target.value)}
+            placeholder={I18n.t("register.addressLabel")}
+            InputLabelProps={{ style: { fontSize: 20 } }}
+          />
+        </div>
+
+        <div className="register_inputContainers">
+          <TextField
             label={I18n.t("register.passwordLabel")}
             className="register_inputs"
             type="password"
@@ -158,21 +124,6 @@ export default function Register(props) {
             value={password}
             onChange={password => setPassword(password.target.value)}
             placeholder={I18n.t("register.passwordLabel")}
-            error={passwordErrorMsgBoolean}
-            helperText={passwordErrorMsg}
-            InputLabelProps={{ style: { fontSize: 20 } }}
-          />
-        </div>
-
-        <div className="register_inputContainers">
-          <TextField
-            label={I18n.t("register.rePasswordLabel")}
-            className="register_inputs"
-            type="password"
-            name="rePassword"
-            value={rePassword}
-            onChange={rePassword => setRePassword(rePassword.target.value)}
-            placeholder={I18n.t("register.rePasswordLabel")}
             InputLabelProps={{ style: { fontSize: 20 } }}
           />
         </div>
@@ -181,7 +132,7 @@ export default function Register(props) {
           <button
             type="button"
             className="register_btn"
-            onClick={() => validateForm()}
+            onClick={() => registerAttempt()}
           >
             {I18n.t("register.registerText")}
           </button>
