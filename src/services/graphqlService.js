@@ -7,6 +7,63 @@ const client = new ApolloClient({
     })
   });
 
+  export const getYourEvents = (id) => {
+    return client.query({
+      query: gql`
+      {
+        user(id: "${id}") {
+          id
+    reservations {
+      id
+      created_timestamp
+      name {fi}
+      description {
+        intro
+      }
+      location {
+        lat
+        lon
+            }
+          }
+        }
+      }
+
+      `
+    })
+    .then(result => {
+      return(result.data.user)
+    });
+  }
+
+  export const getFriendsEvents = (id) => {
+    return client.query({
+      query: gql`
+      {
+        user(id: "${id}") {
+          id
+          friends {
+            id
+            username
+            reservations {
+              id
+              description {
+                intro
+              }
+              location {
+                lat
+                lon
+              }
+            }
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      return(result.data.user)
+    });
+  }
+
   export const getExampleRoutes = () => { 
 
     return client.query({
@@ -59,6 +116,43 @@ const client = new ApolloClient({
   }
 
   export const getEvents = (string) => { 
+    return client.query({
+      query: gql`
+      {
+        events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 10"}) {
+          id
+          name {
+            fi
+          }
+          location {
+            lat
+            lon
+            address {
+              street_address
+            }
+          }
+          description{
+            images {
+              url
+            }
+          }
+          tags {
+            name
+          }
+          event_dates {
+            starting_day
+            ending_day
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      return(result.data.events)
+    });
+  }
+
+  export const getUser = (string) => { 
     return client.query({
       query: gql`
       {

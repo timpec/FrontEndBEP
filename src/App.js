@@ -7,6 +7,7 @@ import MainFeed from "./pages/MainFeed/MainFeed";
 import Map from "./pages/Map/Map";
 import Friends from "./pages/Friends/Friends";
 import Profile from "./pages/Profile/Profile";
+import Reservations from "./pages/Reservations/reservations";
 
 import DetailPage from "./pages/DetailPage/DetailPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -25,6 +26,7 @@ export default function App() {
                 <Nav.Link href="/MainFeed">Aloitus</Nav.Link>
                 <Nav.Link href="/Map">Kartta</Nav.Link>
                 <Nav.Link href="/Friends">Kaverit</Nav.Link>
+                <Nav.Link href="/Reservations">Varaukset</Nav.Link>
                 <Nav.Link href="/Profile">Profiili</Nav.Link>
                 <Nav.Link href="/login">Kirjaudu ulos</Nav.Link>
               </Nav>
@@ -55,6 +57,9 @@ export default function App() {
             </Route>
             <Route path="/Profile" component={Profile}>
               <Profile/>
+            </Route>
+            <Route path="/Reservations" component={Reservations}>
+              <Reservations/>
             </Route>
           </main>
         </div>

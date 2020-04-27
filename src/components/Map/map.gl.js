@@ -1,6 +1,7 @@
-import React from "react";
-import ReactMapboxGl, { Marker, Popup } from "react-mapbox-gl";
-import marker from '../../assets/marker.png'
+import React,{ useEffect, useState } from "react";
+import ReactMapboxGl, { Marker, Popup, Layer, Feature } from "react-mapbox-gl";
+import marker1 from '../../assets/marker.png'
+import { marker } from './marker';
 import { events } from "react-mapbox-gl/lib/map-events";
 const Mapbox = ReactMapboxGl({
   accessToken:
@@ -9,12 +10,21 @@ const Mapbox = ReactMapboxGl({
 
 export default function Map(event) {
     const [popup, showPopup] = React.useState(false);
+    const [popupContent, updateContent] = React.useState(false);
+
+    useEffect(() => {
+      const getData = async () => {
+      }
+      getData();
+    },[popup]);
+
     if(event.props) {
         return (
+
             <Mapbox
               style="mapbox://styles/mapbox/navigation-preview-day-v4"
               containerStyle={{
-                height: "50vh",
+                height: "100vh",
                 width: "100vw",
               }}
               zoom={[13]}
@@ -37,33 +47,52 @@ export default function Map(event) {
               <Marker
                 coordinates={[event.props.location.lon, event.props.location.lat]}
                 anchor="bottom" onClick={((item) => showPopup(true))}>
-                <img src={marker}/>
+                <img src={marker1}/>
                 
               </Marker>
             </Mapbox>
           );
-    } else if(events.events) {
-      return (
-        <Mapbox
-          style="mapbox://styles/mapbox/navigation-preview-day-v4"
-          containerStyle={{
-            height: "100vh",
-            width: "100vw",
-          }}>
-
-          {}
-        </Mapbox>
-      );
     } else {
+
+      const layoutLayer = { 'icon-image': 'eventMarker' };
+      const image = new Image();
+      image.src = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(marker);
+      const images = ['eventMarker', image];
+      
         return (
+          <div>
+
             <Mapbox
               style="mapbox://styles/mapbox/navigation-preview-day-v4"
               containerStyle={{
-                height: "100vh",
-                width: "100vw",
-              }}>
-    
+                height: "50vh",
+                width: "100vw"
+              }}
+              zoom={[13]}
+              center={[25.083669662475586, 60.24193572998047]}>
+              >
+
+              <Layer type="symbol" layout={layoutLayer} images={images}>
+
+              {!events.events ? event.events.map((item) => (
+                <Feature id="markerIcon"
+                key={item.id}
+                coordinates={[item.location.lon, item.location.lat]}
+                onClick={(() => {
+                  updateContent(item)
+                })}              
+                />                
+              )) : 
+              <Feature/>
+              }
+              </Layer>
+              
             </Mapbox>
+          <div className="d-flex flex-row justify-content-around">
+            
+              <h2>{popupContent ? popupContent.name.fi : ""}</h2>
+          </div>
+          </div>
           );
     }
  
