@@ -44,7 +44,6 @@ const reserve = async () => {
 const deleteReservation = async () => {
   let userToken = "5ea5859e28b80937a44c760f";
     let data = await removeReservation(userToken, id);
-    console.log(data);
     if(data && data.data) {
       console.log("success");
     } else {
@@ -83,11 +82,10 @@ return (
         </Tab>
         <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null ? "reserved" : "notReserved") + ".svg")}/>}>
         {item.reservedById == null ? (
-          <div className="d-flex flex-row bd-highlight mb-3">
-          <div className="d-flex flex-column bd-highlight mb-3">
+          <div className="d-flex flex-row bd-highlight p-3">
           <Dropdown>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Date
+        {!reservedData ? "Date" : moment(new Date(parseInt(reservedData * 1000))).calendar() }
         </Dropdown.Toggle>
         <Dropdown.Menu>
         {item.event_dates.weather.map((daysWeather) => (
@@ -97,21 +95,18 @@ return (
         </Dropdown>
         <Button variant="success" disabled={!reservedData || reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
 
-          </div>
           </div>):(
-           <div className="d-flex flex-row bd-highlight mb-3">
-           <div className="d-flex flex-column bd-highlight mb-3">
+           <div className="d-flex flex-row bd-highlight p-3">
             <p>You have already reserved the event</p>
             <p>Your reservation: </p>
             {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}
             <Button variant="danger" onClick={deleteReservation}>Delete reservation</Button>{' '}
-          </div>
           </div>)}
 
         </Tab>
         <Tab eventKey="link" title={<img alt="link" src={require("../../assets/link.svg")}/>}>
-          <div className="d-flex flex-row bd-highlight mb-3">
-          <div className="d-flex flex-column bd-highlight mb-3">
+          <div className="d-flex flex-row bd-highlight p-3">
+          <div className="d-flex flex-column bd-highlight p-3">
           <div className="p-2 bd-highlight">
             {
             item.info_url ? 
