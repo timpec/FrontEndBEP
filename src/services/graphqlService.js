@@ -228,7 +228,14 @@ const client = new ApolloClient({
           id 
           username
           email
-          address
+          address {
+            street_address
+            locality
+            coordinates {
+              lat
+              lon
+            }
+          }
           intrests
           friends {
             id

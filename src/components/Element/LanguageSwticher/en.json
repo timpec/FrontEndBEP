@@ -75,7 +75,7 @@
     "passLengthError": "Password has to be longer than 8 characters",
     "registerText": "Register",
     "alrdyHaveAccountText": "Already registered? Click here",
-    "registerError": "Username not permitted",
+    "registerError": "Username not permitted or non-optional fields missing",
     "registerErrorEmail": "Email format incorrect"
   },
   "history": {

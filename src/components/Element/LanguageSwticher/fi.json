@@ -75,7 +75,7 @@
     "passLengthError": "Salasanan pitää olla yli 8 merkkiä pitkä",
     "registerText": "Rekisteröidy",
     "alrdyHaveAccountText": "Jos sinulla on jo käyttäjä, klikkaa tästä",
-    "registerError": "Käyttäjänimi ei kelpaa",
+    "registerError": "Käyttäjänimi ei kelpaa tai pakollisista kentistä puuttuu tietoja",
     "registerErrorEmail": "Sähköposti osoite ei kelpaa"
   },
   "history": {
