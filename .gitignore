@@ -12,8 +12,10 @@
 /build
 
 # misc
+src/assets/bootstrap.min.css
 .DS_Store
 .env
+src/.env
 .env.local
 .env.development.local
 .env.test.local

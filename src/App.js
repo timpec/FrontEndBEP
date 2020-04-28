@@ -1,6 +1,8 @@
 import React from "react";
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/bootstrap.min.css";
+
+import './index.css';
 import Login from "./pages/signIn/Login";
 import Register from "./pages/signIn/Register";
 import MainFeed from "./pages/MainFeed/MainFeed";
