@@ -1,4 +1,5 @@
-import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
+import { ApolloClient, HttpLink, InMemoryCache, useMutation } from '@apollo/client';
+import gql from 'graphql-tag';
 
 const client = new ApolloClient({
     cache: new InMemoryCache(),
@@ -124,6 +125,9 @@ const client = new ApolloClient({
           name {
             fi
           }
+          reserved {
+            username
+          }
           location {
             lat
             lon
@@ -190,6 +194,8 @@ const client = new ApolloClient({
   }
   
   export const getDetailedEvent = (id, time) => { 
+
+    let userToken = "5ea5859e28b80937a44c760f";
     return client.query({
       query: gql`
       {
@@ -199,6 +205,11 @@ const client = new ApolloClient({
             fi
           }
           info_url
+          reservedById(id:"${userToken}") {
+            name {
+              fi
+            }
+          }
           location {
             lat
             lon
@@ -245,4 +256,29 @@ const client = new ApolloClient({
     .then(result => {
       return(result.data.event)
     });
+  }
+
+  export const addReservation = (userId, reservationId, dateTs) => {
+    let query = gql`
+      mutation UserAddReservation($id: ID!, $reservation: String! , $date:String!) {
+        UserAddReservation(id: $id, reservation: $reservation , date: $date) {
+          username
+        }
+      }
+      `
+    
+    return client.mutate({
+      mutation: query,
+      variables: {
+        id: userId,
+        reservation: reservationId,
+        date: dateTs
+      }
+
+    })
+    .then(result => {
+      return(result)
+    }).catch((error) => {
+      return error
+    })
   }

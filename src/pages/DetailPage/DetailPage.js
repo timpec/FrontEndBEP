@@ -3,20 +3,33 @@ import { useParams } from "react-router-dom";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Button from 'react-bootstrap/Button';
-import {getDetailedEvent} from '../../services/graphqlService';
+import Dropdown from 'react-bootstrap/Dropdown';
+
+import { getDetailedEvent, addReservation } from '../../services/graphqlService';
 import Map from '../../components/Map/map.gl'
 import moment from "moment"
 export default function MainFeed() {
   const {id} = useParams();
   const [event, updateEvent] = React.useState([]);
+  const [reservedData, updateReservedData] = React.useState("");
+  const [reservedSuccess, updateReservedSuccess] = React.useState(false);
 
 useEffect(() => {
   const getData = async () => { 
     let data = await getDetailedEvent(id, moment(new Date()).startOf('day').format('hh:mm:ss'));
+    console.log(data);
     updateEvent(data);
   }
   getData();
 }, [id]);
+
+const reserve = async () => {
+  //get from the localStorage
+  let userToken = "5ea5859e28b80937a44c760f";
+  let data = await addReservation(userToken, id, reservedData);
+  console.log(data);
+  //check if reserved is success
+}
 
 return ( 
 <div>
@@ -80,10 +93,21 @@ return (
           ))}
             </ul>
         </Tab>
-        <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/notReserved.svg")}/>}>
+        <Tab eventKey="reserved" disabled={item.reservedById != null} title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null ? "reserved" : "notReserved") + ".svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
           <div className="d-flex flex-column bd-highlight mb-3">
-          <div className="p-2 bd-highlight">more info</div>
+          <Dropdown>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Date
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+        {item.event_dates.weather.map((daysWeather) => (
+                <Dropdown.Item as="button" onClick={((event) => {updateReservedData(daysWeather.ts)})}>{moment(new Date(parseInt(daysWeather.ts * 1000)).toString()).subtract(0, 'days').calendar()}</Dropdown.Item>
+        ))}
+        </Dropdown.Menu>
+        </Dropdown>
+        <Button variant="success" disabled={!reservedData || !reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
+
           </div>
           </div>
         </Tab>

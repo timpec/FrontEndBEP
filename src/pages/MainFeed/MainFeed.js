@@ -77,7 +77,8 @@ return (
           <div className="d-flex flex-column bd-highlight mb-3">
           <div className="p-2 bd-highlight">{moment(new Date(parseInt(item.event_dates.starting_day)).toString()).subtract(0, 'days').calendar() +""+ (item.event_dates.ending_day ? "-"+moment(new Date(parseInt(item.event_dates.ending_day)).toString()).calendar() : "")}</div>
           <div className="p-2 bd-highlight">{item.location.address.street_address}</div>
-                    
+          <div className="p-2 bd-highlight">Participants: {item.reserved.length}</div>      
+
           <div className="d-flex justify-content-around">
             {item.tags[0] ? 
               <Badge pill variant="secondary">{item.tags[0].name}</Badge>:<div></div>
