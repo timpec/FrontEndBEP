@@ -3,43 +3,42 @@ import { Redirect } from "react-router-dom";
 import { TextField } from "@material-ui/core";
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Login.css";
+import {postLogin} from '../../services/graphqlService';
 
 export default function Login() {
   const [username, setUsername] = useState("");
-  const [loginErrorMsg, setLoginErrorMsg] = useState("");
-  const [errorMsgBoolean, setErrorMsgBoolean] = useState(false);
+  const [password, setPassword] = useState("");
+  const [loginErrorMsg, setLoginErrorMsg] = useState(""); 
   const [redirect, changeRedirect] = useState(false);
   const [redirectRegister, changeRedirectRegister] = useState(false);
 
-  // Removes the error message when user types into the username field
-  function onUsernameChange(username) {
+  const onUsernameChange = (username) => {
     setUsername(username.target.value);
     console.log(username.target.value);
     setLoginErrorMsg("");
-    setErrorMsgBoolean(false);
   }
 
-  // Validates login form
-  function validateForm() {
-    if (username === "") {
-      setErrorMsgBoolean(true);
-      setLoginErrorMsg(I18n.t("login.loginError"));
-    } else {
+  const onPwChange = (password) => {
+    setPassword(password.target.value);
+  }
+
+  const loginAttempt = async () => {
+    const user = await postLogin(username,password)
+    console.log(user)
+    if (user === true) {
+      console.log("true")
       changeRedirect(true);
+    } else {
+      setLoginErrorMsg(I18n.t("login.loginError"));
     }
   }
 
-  // Sets redirection to true
-  function redirectRegistering() {
+  const redirectRegistering = () => {
     changeRedirectRegister(true);
   }
-
-  // Handles redirection to feed page
   if (redirect) {
     return <Redirect push to="/MainFeed" />;
   }
-
-  // Handles redirection to register page
   if (redirectRegister) {
     return <Redirect push to="/register" />;
   }
@@ -53,6 +52,9 @@ export default function Login() {
         <div className="login_signInText">{I18n.t("login.title")}</div>
 
         <hr className="login_line"></hr>
+        <div className="error_alert">
+          <h5>{loginErrorMsg}</h5>
+        </div>
 
         <div className="login_inputContainers">
           <TextField
@@ -61,10 +63,7 @@ export default function Login() {
             type="text"
             name="username"
             placeholder={I18n.t("login.usernameLabel")}
-            maxLength={20}
             onChange={onUsernameChange}
-            error={errorMsgBoolean}
-            helperText={loginErrorMsg}
             InputLabelProps={{ style: { fontSize: 20 } }}
           />
         </div>
@@ -75,6 +74,7 @@ export default function Login() {
             className="login_inputs"
             type="password"
             name="password"
+            onChange={onPwChange}
             placeholder={I18n.t("login.passwordLabel")}
             InputLabelProps={{ style: { fontSize: 20 } }}
           />
@@ -84,7 +84,7 @@ export default function Login() {
           <button
             type="button"
             className="login_btn"
-            onClick={() => validateForm()}
+            onClick={() => loginAttempt()}
           >
             {I18n.t("login.loginText")}
           </button>
