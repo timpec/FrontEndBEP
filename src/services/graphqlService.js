@@ -241,6 +241,9 @@ const client = new ApolloClient({
             id
             username
             email
+            address {
+              locality
+            }
             intrests
             reservations {
               id
@@ -284,6 +287,107 @@ const client = new ApolloClient({
     })
     .then(result => {
       return(result.data.user)
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const removeFriend = (id, friends) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserRemoveFriend (
+          id: "${id}" friends: "${friends}"
+        ) {
+          id
+          username
+          email
+          address {
+            street_address
+            locality
+            coordinates {
+              lat
+              lon
+            }
+          }
+          intrests
+          friends {
+            id
+            username
+            email
+            intrests
+            reservations {
+              id
+              name {fi en}
+              source_type {id name}
+              info_url
+              location {
+                lat
+                lon
+                address {
+                  locality
+                  street_address
+                  postal_code
+                }
+              }
+            }
+          }
+          reservations {
+            id
+            name {fi en}
+            source_type {id name}
+            info_url
+            location {
+              lat
+              lon
+              address {
+                locality
+                street_address
+                postal_code
+            }
+          }
+        }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserRemoveFriend
+      console.log(usr)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const modifyUser = (id, email, address, password) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserModify (
+          id: "${id}"
+          email: "${email}"
+          password: "${password}"
+          address: "${address}"
+        ) {
+          id
+          username
+          email
+          address {
+              street_address
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserModify
+      console.log(usr)
+      return true
     })
     .catch(err => {
       console.log(err)

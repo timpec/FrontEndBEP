@@ -10,14 +10,13 @@
 }
 
 .card {
-    border-radius: 2px;
-    border-style: none;
-    background-color: lightgrey;
+    background-color: #fff;
     box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
 }
 
 .friend_card {
-    border: solid darkgrey 2px;
+    border: solid lightblue 2px;
+    background-color: lightblue;
     box-shadow: none;
     margin: 1em 0;
 }
@@ -26,6 +25,7 @@
     background-color: lightblue;
     border: lightblue;
     color: #000000;
+    border-radius: 0%;
 }
 .btn-primary:focus:hover{
     background-color: lightblue;
@@ -45,7 +45,7 @@
 }
 
 .list-group-item-profile {
-    background-color: lightskyblue;
+    background-color:#fff
 }
 
 .profile_username {
@@ -55,20 +55,31 @@
     margin: 0.5em
 }
   
-
 .logout_btnContainer {
+    text-align: center;
+}
+  
+.deletefriend_btn {
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    border-style: none;
+    font-size: 1.2em;
+    background-color: lightcoral;
+    color: #000000;
+}
+
+.deletefriend_btnContainer {
     text-align: center;
 }
   
 .logout_btn {
     width: 100%;
     height: 50px;
-    border-radius: 2px;
     border-style: none;
     font-size: 1.2em;
     background-color: lightcoral;
     color: #000000;
-    box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
 }
 
 .logout_body {

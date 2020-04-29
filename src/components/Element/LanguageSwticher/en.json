@@ -7,7 +7,14 @@
     "logoutButton": "Log out",
     "intrests_title": "Intrests",
     "friends_title": "Friends",
-    "friends_btn": "Show"
+    "friends_btn": "Show",
+    "deletefriend_btn": "Delete friend",
+    "modify_col": "Edit",
+    "modify_title": "Fill fields that need to be modified",
+    "modify_email": "Email",
+    "modify_address": "Street Address",
+    "modify_password": "Password",
+    "modify_btn": "Submit"
   },
   "organizationPage": {
     "location": "Sijainti",

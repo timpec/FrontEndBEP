@@ -7,7 +7,14 @@
     "logoutButton": "Kirjaudu ulos",
     "intrests_title": "Kinnostuksen kohteet",
     "friends_title": "Kaverit",
-    "friends_btn": "Näytä"
+    "friends_btn": "Näytä",
+    "deletefriend_btn": "Poista kavereista",
+    "modify_col": "Muuta tietoja",
+    "modify_title": "Täytä kohdat joiden tiedot haluat muuttaa",
+    "modify_email": "Sähköposti osoite",
+    "modify_address": "Katuosoite",
+    "modify_password": "Salasana",
+    "modify_btn": "Vaihda"
   },
   "organizationPage": {
     "location": "Sijainti",

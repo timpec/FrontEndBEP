@@ -4,11 +4,14 @@ import Card, { CardTitle, CardBody } from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Profile.css";
-import {getUser} from '../../services/graphqlService';
+import {getUser, removeFriend, modifyUser} from '../../services/graphqlService';
 
 export default function Profile (props) {
     const [user, updateUser] = React.useState([]);
@@ -16,6 +19,11 @@ export default function Profile (props) {
     const [intrests, updateIntrest] = React.useState([]);
     const [friends, updateFriends] = React.useState([])
     const [open, setOpen] = React.useState(false);
+
+  
+  const [emailField, setEmailField] = React.useState("");
+  const [addressField, setAddressField] = React.useState("");
+  const [passwordField, setPasswordField] = React.useState("");
     
     const [redirectLogin, changeRedirectLogin] = React.useState(false);
   
@@ -31,9 +39,22 @@ export default function Profile (props) {
     getData();
   },[user, address, intrests, friends]);
 
-    const placeholder = async () => {
-        localStorage.clear()
-        changeRedirectLogin(true);
+
+  const deleteFriend = async (friends) => {
+    const id = localStorage.getItem('userid');
+    let data = await removeFriend(id, friends)
+    console.log(data)
+  }
+
+  const placeholder= async (friends) => {
+    const id = localStorage.getItem('userid');
+    const data = await modifyUser(id, emailField, addressField, passwordField);
+    console.log(data)
+  }
+
+    const logout = async () => {
+      localStorage.clear()
+      changeRedirectLogin(true);
     }
     if (redirectLogin) {
       return <Redirect push to="/login" />;
@@ -48,10 +69,38 @@ export default function Profile (props) {
               </Card.Body>
               <Card.Body>
               <ListGroup className="list-group-flush">
-                <ListGroupItem>{user.email}</ListGroupItem>
-                <ListGroupItem>{address.street_address}, {address.locality}</ListGroupItem>
+                <ListGroupItem key="email">{user.email}</ListGroupItem>
+                <ListGroupItem key="address">{address.street_address}, {address.locality}</ListGroupItem>
               </ListGroup>
               </Card.Body >
+              <Button
+                className="frienBtn"
+                onClick={() => setOpen(!open)}
+                aria-controls="friend_col"
+                aria-expanded={open}>{I18n.t("profile.modify_col")}</Button>
+              <Collapse in={open}>
+                <Card.Body>
+                  <Form>
+                    <Form.Label>{I18n.t("profile.modify_title")}</Form.Label>
+                  <Form.Group as={Row} controlId="formEmail">
+                      <Col sm="10">
+                        <Form.Control type="email" placeholder={I18n.t("profile.modify_email")} onChange={email => setEmailField(email.target.value)} />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formAddress">
+                      <Col sm="10">
+                        <Form.Control type="text" placeholder={I18n.t("profile.modify_address")} onChange={address => setAddressField(address.target.value)} />
+                      </Col>
+                    </Form.Group>
+                    <Form.Group as={Row} controlId="formPassword">
+                      <Col sm="10">
+                        <Form.Control type="password" placeholder={I18n.t("profile.modify_password")} onChange={password => setPasswordField(password.target.value)} />
+                      </Col>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" onClick={() => placeholder()}>{I18n.t("profile.modify_btn")}</Button>
+                  </Form>
+                </Card.Body>
+              </Collapse>
             </Card>
           </div>
           <div className="card_container">
@@ -62,7 +111,7 @@ export default function Profile (props) {
               <Card.Body>
               <div>
                   {intrests.map(item => (
-                    <h4 className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
+                    <h4 key={item} className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
                   ))}
                   </div>
               </Card.Body>
@@ -77,23 +126,32 @@ export default function Profile (props) {
                 className="frienBtn"
                 onClick={() => setOpen(!open)}
                 aria-controls="friend_col"
-                aria-expanded={open}>{I18n.t("profile.friends_button")}</Button>
+                aria-expanded={open}>{I18n.t("profile.friends_btn")}</Button>
               <Collapse in={open}>
                 <Card.Body id="friend_col">
               <div>
                   {friends.map(item => (
-                    <Card className="friend_card">
+                    <Card key={item.username} className="friend_card">
                       <Card.Body>
-                      <Card.Title>{item.username}</Card.Title>
-                      <Card.Subtitle>{item.email}</Card.Subtitle>
+                      <Card.Title><h4>{item.username}</h4></Card.Title>
+                      <Card.Subtitle><h5>{item.address.locality}</h5></Card.Subtitle>
+                      <Card.Subtitle><h5>{item.email}</h5></Card.Subtitle>
                       </Card.Body>
                       <Card.Body>
                       <div>
                   {item.intrests.map(i => (
-                    <Badge pill variant="secondary">{i}</Badge>
+                    <Badge key={item.username} pill variant="secondary">{i}</Badge>
                   ))}
                   </div>
                       </Card.Body>
+                      <div className="deletefriend_btnContainer">
+                        <button
+                        type="button"
+                        className="deletefriend_btn"
+                        onClick={() => deleteFriend(item.id)}>
+                        {I18n.t("profile.deletefriend_btn")}
+                        </button>
+                      </div>
                     </Card>
                   ))}
                   </div>
@@ -108,7 +166,7 @@ export default function Profile (props) {
                 <button
                 type="button"
                 className="logout_btn"
-                onClick={() => placeholder()}>
+                onClick={() => logout()}>
             {I18n.t("profile.logoutButton")}
           </button>
         </div>
