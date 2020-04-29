@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import "./assets/bootstrap.min.css";
-
 import './index.css';
 import Login from "./pages/signIn/Login";
 import Register from "./pages/signIn/Register";
@@ -10,13 +9,34 @@ import Map from "./pages/Map/Map";
 import Friends from "./pages/Friends/Friends";
 import Profile from "./pages/Profile/Profile";
 import Reservations from "./pages/Reservations/reservations";
-
+import { Redirect } from "react-router-dom";
 import DetailPage from "./pages/DetailPage/DetailPage";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
+
+
 export default function App() {
+  const [loggedIn, setloggedIn] = React.useState(true);
+
+
+  const checkAuthentication = () => {
+    const user = localStorage.getItem('userid');
+    if(!user) {
+      return false
+    }
+    return true
+  }
+
+  const PrivateRoute = ({ component: Component, ...rest }) => (
+    <Route {...rest} render={(props) => (
+      checkAuthentication()
+      ? <MainFeed/>
+        : <Redirect to='/login' />
+    )} />
+  )
+
   return (
       <Router>
         <div style={{ height: "100%" }}>
@@ -45,9 +65,6 @@ export default function App() {
             <Route path="/register" component={Register}>
               <Register />
             </Route>
-            <Route path="/MainFeed" component={MainFeed}>
-              <MainFeed/>
-            </Route>
             <Route path="/detailPage/:id" component={DetailPage}>
               <DetailPage/>
             </Route>
@@ -63,7 +80,14 @@ export default function App() {
             <Route path="/Reservations" component={Reservations}>
               <Reservations/>
             </Route>
-          </main>
+            {/** KYTKE PÄÄLLE KUN ON AIKA 
+            <PrivateRoute path='/MainFeed' component={MainFeed} />
+            <PrivateRoute path='/Map' component={MainFeed} />
+            <PrivateRoute path='/Friends' component={MainFeed} />
+            <PrivateRoute path='/Profile' component={MainFeed} />
+            <PrivateRoute path='/Reservations' component={MainFeed} />
+               */}
+            </main>
         </div>
       </Router>
     )
