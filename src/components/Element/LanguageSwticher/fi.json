@@ -1,9 +1,13 @@
 {
-  "profilePage": {
+  "profile": {
     "favoriteOrganizations": "Suosikki järjestöt",
     "statistic": "Statistiikkaa",
     "update": "Päivitä",
-    "Achievements": "Saavutukset"
+    "Achievements": "Saavutukset",
+    "logoutButton": "Kirjaudu ulos",
+    "intrests_title": "Kinnostuksen kohteet",
+    "friends_title": "Kaverit",
+    "friends_btn": "Näytä"
   },
   "organizationPage": {
     "location": "Sijainti",

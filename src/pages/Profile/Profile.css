@@ -1,27 +1,83 @@
 .profile_container {
-    display: flex;
-    width: 100%;
+    display: block;
+    padding: 0 5%;
     justify-content: center;
+}
+
+.card_container {
+    text-align: center;
+    padding: 0 0 1.5em 0;
+}
+
+.card {
+    border-radius: 2px;
+    border-style: none;
+    background-color: lightgrey;
+    box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+}
+
+.friend_card {
+    border: solid darkgrey 2px;
+    box-shadow: none;
+    margin: 1em 0;
+}
+
+.btn-primary  {
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+}
+.btn-primary:focus:hover{
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+}
+.btn-primary:hover{
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+}
+
+
+.intrest_badge {
+    width: auto;
+    margin: 0;
+}
+
+.list-group-item-profile {
+    background-color: lightskyblue;
+}
+
+.profile_username {
+}
+
+.badge {
+    margin: 0.5em
 }
   
 
 .logout_btnContainer {
     text-align: center;
-    padding: 3em 0 0 0;
 }
   
 .logout_btn {
-    width: 80%;
+    width: 100%;
     height: 50px;
     border-radius: 2px;
     border-style: none;
     font-size: 1.2em;
     background-color: lightcoral;
-    color: white;
+    color: #000000;
     box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
 }
+
+.logout_body {
+    height: 50px;
+    width: 100%;
+    padding: 0%;
+}
   
-.logot_btn:active{
+.logout_btn:active{
     vertical-align: top;
     background-color: blue;
     padding: 8px 13px 6px;

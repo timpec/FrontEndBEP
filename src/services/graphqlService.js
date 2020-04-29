@@ -239,6 +239,7 @@ const client = new ApolloClient({
           intrests
           friends {
             id
+            username
             email
             intrests
             reservations {

@@ -26,7 +26,6 @@ export default function App() {
                 <Nav.Link href="/Map">Kartta</Nav.Link>
                 <Nav.Link href="/Friends">Kaverit</Nav.Link>
                 <Nav.Link href="/Profile">Profiili</Nav.Link>
-                <Nav.Link href="/login">Kirjaudu ulos</Nav.Link>
               </Nav>
             </Navbar.Collapse>
           </Navbar>

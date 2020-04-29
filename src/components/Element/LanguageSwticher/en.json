@@ -1,9 +1,13 @@
 {
-  "profilePage": {
+  "profile": {
     "favoriteOrganizations": "Favorite Organisations",
     "statistic": "Statistic",
     "update": "Update",
-    "Achievements": "Saavutukset"
+    "Achievements": "Saavutukset",
+    "logoutButton": "Log out",
+    "intrests_title": "Intrests",
+    "friends_title": "Friends",
+    "friends_btn": "Show"
   },
   "organizationPage": {
     "location": "Sijainti",
