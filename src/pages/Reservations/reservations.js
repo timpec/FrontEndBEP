@@ -29,12 +29,11 @@ export default function Profile() {
             <p className="card-text">
              {reservation.description.intro}
             </p>
-            <a href={"DetailPage/"+reservation.id} className="btn btn-primary">
+            <a href={"DetailPage/"+reservation.id} className="btn btn-outline-secondary">
               Visit site
             </a>
           </div>
           <div className="card-footer text-muted">
-            {moment(parseInt(reservation.created_timestamp)).fromNow()}
         </div>
         </div>
       ))}

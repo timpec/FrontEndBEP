@@ -38,6 +38,7 @@ export default function App() {
   )
 
   return (
+    
       <Router>
         <div style={{ height: "100%" }}>
           <Navbar bg="light" expand="lg">
@@ -80,8 +81,8 @@ export default function App() {
             <Route path="/Reservations" component={Reservations}>
               <Reservations/>
             </Route>
-            {/** KYTKE PÄÄLLE KUN ON AIKA 
             <PrivateRoute path='/MainFeed' component={MainFeed} />
+            {/** KYTKE PÄÄLLE KUN ON AIKA 
             <PrivateRoute path='/Map' component={MainFeed} />
             <PrivateRoute path='/Friends' component={MainFeed} />
             <PrivateRoute path='/Profile' component={MainFeed} />

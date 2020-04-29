@@ -31,7 +31,6 @@ const client = new ApolloClient({
           id
     reservations {
       id
-      created_timestamp
       name {fi}
       description {
         intro
@@ -209,7 +208,6 @@ const client = new ApolloClient({
   }
   
   export const getDetailedEvent = (id, time) => { 
-
     let userToken = "5ea5859e28b80937a44c760f";
     return client.query({
       query: gql`
@@ -224,7 +222,6 @@ const client = new ApolloClient({
             name {
               fi
             }
-          date
           }
           location {
             lat
