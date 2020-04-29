@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { Redirect } from "react-router-dom";
 import Card, { CardTitle, CardBody } from 'react-bootstrap/Card';
 import Collapse from 'react-bootstrap/Collapse';
+import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Form from 'react-bootstrap/Form';
@@ -73,13 +74,10 @@ export default function Profile (props) {
                 <ListGroupItem key="address">{address.street_address}, {address.locality}</ListGroupItem>
               </ListGroup>
               </Card.Body >
-              <Button
-                className="frienBtn"
-                onClick={() => setOpen(!open)}
-                aria-controls="friend_col"
-                aria-expanded={open}>{I18n.t("profile.modify_col")}</Button>
-              <Collapse in={open}>
-                <Card.Body>
+              <Accordion>
+              <Accordion.Toggle as={Button} variant="link" eventKey="0">{I18n.t("profile.modify_col")}</Accordion.Toggle>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body id="prof_col"> 
                   <Form>
                     <Form.Label>{I18n.t("profile.modify_title")}</Form.Label>
                   <Form.Group as={Row} controlId="formEmail">
@@ -100,7 +98,8 @@ export default function Profile (props) {
                     <Button variant="primary" type="submit" onClick={() => placeholder()}>{I18n.t("profile.modify_btn")}</Button>
                   </Form>
                 </Card.Body>
-              </Collapse>
+              </Accordion.Collapse>
+              </Accordion>
             </Card>
           </div>
           <div className="card_container">
@@ -122,12 +121,9 @@ export default function Profile (props) {
               <Card.Body>
                 <h3>{I18n.t("profile.friends_title")}</h3>
               </Card.Body>
-              <Button
-                className="frienBtn"
-                onClick={() => setOpen(!open)}
-                aria-controls="friend_col"
-                aria-expanded={open}>{I18n.t("profile.friends_btn")}</Button>
-              <Collapse in={open}>
+              <Accordion>
+              <Accordion.Toggle as={Button} variant="link" eventKey="1">{I18n.t("profile.friends_btn")}</Accordion.Toggle>
+              <Accordion.Collapse eventKey="1">
                 <Card.Body id="friend_col">
               <div>
                   {friends.map(item => (
@@ -156,7 +152,8 @@ export default function Profile (props) {
                   ))}
                   </div>
               </Card.Body>
-              </Collapse>
+              </Accordion.Collapse>
+              </Accordion>
             </Card>
           </div>
           <div className="card_container">
