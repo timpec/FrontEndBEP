@@ -470,3 +470,26 @@ const client = new ApolloClient({
       return false
     });
   }
+
+  export const removeUser = (id) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserDelete (
+          id: "${id}"
+        ) {
+          id
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserDelete
+      console.log(usr)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }

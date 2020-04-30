@@ -14,7 +14,14 @@
     "modify_email": "Sähköposti osoite",
     "modify_address": "Katuosoite",
     "modify_password": "Salasana",
-    "modify_btn": "Vaihda"
+    "modify_btn": "Vaihda",
+    "deleteConfirm": "Oletko varma?",
+    "deleteaccountButton": "Poista",
+    "deleteUser_title": "Poista tili",
+    "delete": "Poista",
+    "add": "Lisää",
+    "add_delete": "Lisää / Poista"
+
   },
   "organizationPage": {
     "location": "Sijainti",

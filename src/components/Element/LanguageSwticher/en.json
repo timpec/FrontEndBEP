@@ -14,7 +14,14 @@
     "modify_email": "Email",
     "modify_address": "Street Address",
     "modify_password": "Password",
-    "modify_btn": "Submit"
+    "modify_btn": "Submit",
+    "deleteConfirm": "Are you sure?",
+    "deleteaccountButton": "Delete",
+    "deleteUser_title": "Delete account",
+    "delete": "Delete",
+    "add": "Add",
+    "add_delete": "Add / Delete"
+  
   },
   "organizationPage": {
     "location": "Sijainti",

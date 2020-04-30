@@ -12,7 +12,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Profile.css";
-import {getUser, removeFriend, modifyUser, addIntrests, removeIntrests} from '../../services/graphqlService';
+import {getUser, removeFriend, modifyUser, addIntrests, removeIntrests, removeUser} from '../../services/graphqlService';
 
 export default function Profile (props) {
     const [user, updateUser] = React.useState([]);
@@ -69,6 +69,14 @@ export default function Profile (props) {
     console.log(intrestRemove);
     const data = await removeIntrests(id, intrestRemove);
     console.log(data);
+  }
+
+  const deleteAccount = async () => {
+    const id = localStorage.getItem('userid');
+    console.log("delete account");
+    const data = await removeUser(id);
+    console.log("Account: ", data.username," deleted." )
+    logout()
   }
 
     const logout = async () => {
@@ -133,7 +141,7 @@ export default function Profile (props) {
                   </div>
               </Card.Body>
               <Accordion>
-              <Accordion.Toggle as={Button} variant="link" eventKey="2">Lisää / Poista</Accordion.Toggle>
+              <Accordion.Toggle as={Button} variant="link" eventKey="2">{I18n.t("profile.add_delete")}</Accordion.Toggle>
               <Accordion.Collapse eventKey="2">
                 <Card.Body id="intrest_add_col"> 
                   <Form>
@@ -146,7 +154,7 @@ export default function Profile (props) {
                       </Form.Group>
                       </div>
                         <div className="iBtn">
-                    <Button variant="primary" type="submit" onClick={() => addUserIntrest()}>Lisää</Button>
+                    <Button variant="primary" type="submit" onClick={() => addUserIntrest()}>{I18n.t("profile.add")}</Button>
                     </div>
                     </div>
                   </Form>
@@ -164,7 +172,7 @@ export default function Profile (props) {
                       </Form.Group>
                       </div>
                       <div className="iBtn">
-                    <Button variant="primary" type="submit" onClick={() => removeUserIntrest()}>Poista</Button>
+                    <Button variant="primary" type="submit" onClick={() => removeUserIntrest()}>{I18n.t("profile.delete")}</Button>
                     </div>
                     </div>
                   </Form>
@@ -213,6 +221,28 @@ export default function Profile (props) {
               </Accordion>
             </Card>
           </div>
+          <div className="card_container">
+          <Card>
+            <Card.Body>
+            <Card.Title><h4>{I18n.t("profile.deleteUser_title")}</h4></Card.Title>
+            </Card.Body>
+            <Accordion>
+              <Accordion.Toggle as={Button} variant="link" eventKey="3">{I18n.t("profile.deleteConfirm")}</Accordion.Toggle>
+              <Accordion.Collapse eventKey="3">
+            <Card.Body className="deleteaccount_body">
+          <div className="deleteaccount_Container">
+                <button
+                type="button"
+                className="deleteaccount_btn"
+                onClick={() => deleteAccount()}>
+            {I18n.t("profile.deleteaccountButton")}
+          </button>
+        </div>
+        </Card.Body>
+        </Accordion.Collapse>
+              </Accordion>
+        </Card>
+        </div>
           <div className="card_container">
           <Card>
             <Card.Body className="logout_body">
