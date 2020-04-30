@@ -12,7 +12,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Profile.css";
-import {getUser, removeFriend, modifyUser, addIntrests, removeIntrests, removeUser} from '../../services/graphqlService';
+import {getUser, removeFriend, modifyUser, addIntrests, removeIntrests, removeUser} from '../../services/userGqlService';
 
 export default function Profile (props) {
     const [user, updateUser] = React.useState([]);
