@@ -15,8 +15,7 @@
 }
 
 .friend_card {
-    border: solid lightblue 2px;
-    background-color: lightblue;
+    background-color: #fff;
     box-shadow: none;
     margin: 1em 0;
 }
@@ -48,8 +47,6 @@
     background-color:#fff
 }
 
-.profile_username {
-}
 
 .badge {
     margin: 0.5em
@@ -58,6 +55,20 @@
 .logout_btnContainer {
     text-align: center;
 }
+
+.intrestfield_container {
+    width: 100%;
+}
+
+.intrestField{
+    width: 70%;
+    float: left
+}
+
+.iBtn {
+    width: 30%;
+    float: right;
+}
   
 .deletefriend_btn {
     width: 100%;
@@ -65,8 +76,8 @@
     padding: 0;
     border-style: none;
     font-size: 1.2em;
-    background-color: lightcoral;
-    color: #000000;
+    background-color: black;
+    color: #fff;
 }
 
 .deletefriend_btnContainer {
@@ -78,8 +89,8 @@
     height: 50px;
     border-style: none;
     font-size: 1.2em;
-    background-color: lightcoral;
-    color: #000000;
+    background-color: black;
+    color: #fff;
 }
 
 .logout_body {

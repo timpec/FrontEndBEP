@@ -12,7 +12,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Profile.css";
-import {getUser, removeFriend, modifyUser} from '../../services/graphqlService';
+import {getUser, removeFriend, modifyUser, addIntrests, removeIntrests} from '../../services/graphqlService';
 
 export default function Profile (props) {
     const [user, updateUser] = React.useState([]);
@@ -25,7 +25,11 @@ export default function Profile (props) {
   const [emailField, setEmailField] = React.useState("");
   const [addressField, setAddressField] = React.useState("");
   const [passwordField, setPasswordField] = React.useState("");
-    
+  
+
+  const [intrestAdd, setIntrestAdd] = React.useState("");
+  const [intrestRemove, setIntrestRemove] = React.useState("");
+
     const [redirectLogin, changeRedirectLogin] = React.useState(false);
   
   useEffect(() => {
@@ -47,10 +51,24 @@ export default function Profile (props) {
     console.log(data)
   }
 
-  const placeholder= async (friends) => {
+  const editUser= async () => {
     const id = localStorage.getItem('userid');
     const data = await modifyUser(id, emailField, addressField, passwordField);
     console.log(data)
+  }
+
+  const addUserIntrest = async () => {
+    const id = localStorage.getItem('userid');
+    console.log(intrestAdd);
+    const data = await addIntrests(id, intrestAdd);
+    console.log(data);
+  }
+
+  const removeUserIntrest = async () => {
+    const id = localStorage.getItem('userid');
+    console.log(intrestRemove);
+    const data = await removeIntrests(id, intrestRemove);
+    console.log(data);
   }
 
     const logout = async () => {
@@ -95,7 +113,7 @@ export default function Profile (props) {
                         <Form.Control type="password" placeholder={I18n.t("profile.modify_password")} onChange={password => setPasswordField(password.target.value)} />
                       </Col>
                     </Form.Group>
-                    <Button variant="primary" type="submit" onClick={() => placeholder()}>{I18n.t("profile.modify_btn")}</Button>
+                    <Button variant="primary" type="submit" onClick={() => editUser()}>{I18n.t("profile.modify_btn")}</Button>
                   </Form>
                 </Card.Body>
               </Accordion.Collapse>
@@ -114,6 +132,45 @@ export default function Profile (props) {
                   ))}
                   </div>
               </Card.Body>
+              <Accordion>
+              <Accordion.Toggle as={Button} variant="link" eventKey="2">Lisää / Poista</Accordion.Toggle>
+              <Accordion.Collapse eventKey="2">
+                <Card.Body id="intrest_add_col"> 
+                  <Form>
+                    <div className="intrestfield_container">
+                      <div className="intrestField">
+                      <Form.Group as={Row} controlId="intrestAdd">
+                        <Col sm="10">
+                          <Form.Control type="text" placeholder="Esim. music" onChange={e => setIntrestAdd(e.target.value)} />
+                        </Col>
+                      </Form.Group>
+                      </div>
+                        <div className="iBtn">
+                    <Button variant="primary" type="submit" onClick={() => addUserIntrest()}>Lisää</Button>
+                    </div>
+                    </div>
+                  </Form>
+                  <Form>
+                    <div className="intrestfield_container">
+                      <div className="intrestField">
+                      <Form.Group as={Row} controlId="intrestRemove">
+                        <Col sm="10">
+                          <Form.Control as="select" onChange={e => setIntrestRemove(e.target.value)}>
+                            {intrests.map(item => (
+                              <option>{item}</option>
+                            ))}
+                          </Form.Control>
+                        </Col>
+                      </Form.Group>
+                      </div>
+                      <div className="iBtn">
+                    <Button variant="primary" type="submit" onClick={() => removeUserIntrest()}>Poista</Button>
+                    </div>
+                    </div>
+                  </Form>
+                </Card.Body>
+              </Accordion.Collapse>
+              </Accordion>
             </Card>
           </div>
           <div className="card_container">

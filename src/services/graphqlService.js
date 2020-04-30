@@ -394,3 +394,79 @@ const client = new ApolloClient({
       return false
     });
   }
+
+  export const addIntrests = (id, intrests) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserAddIntrest (
+          id: "${id}"
+          intrests: "${intrests}"
+        ) {
+          username
+          email
+          address {
+            street_address
+            locality
+          }
+          intrests
+          friends {
+            username
+            email
+            intrests
+          }
+          reservations {
+            id
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserAddIntrest
+      console.log(usr)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const removeIntrests = (id, intrests) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserRemoveIntrest (
+          id: "${id}"
+          intrests: "${intrests}"
+        ) {
+          username
+          email
+          address {
+            street_address
+            locality
+          }
+          intrests
+          friends {
+            username
+            email
+            intrests
+          }
+          reservations {
+            id
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserRemoveIntrest
+      console.log(usr)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
