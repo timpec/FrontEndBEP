@@ -1,9 +1,27 @@
 {
-  "profilePage": {
+  "profile": {
     "favoriteOrganizations": "Favorite Organisations",
     "statistic": "Statistic",
     "update": "Update",
-    "Achievements": "Saavutukset"
+    "Achievements": "Saavutukset",
+    "logoutButton": "Log out",
+    "intrests_title": "Intrests",
+    "friends_title": "Friends",
+    "friends_btn": "Show",
+    "deletefriend_btn": "Delete friend",
+    "modify_col": "Edit",
+    "modify_title": "Fill fields that need to be modified",
+    "modify_email": "Email",
+    "modify_address": "Street Address",
+    "modify_password": "Password",
+    "modify_btn": "Submit",
+    "deleteConfirm": "Are you sure?",
+    "deleteaccountButton": "Delete",
+    "deleteUser_title": "Delete account",
+    "delete": "Delete",
+    "add": "Add",
+    "add_delete": "Add / Delete"
+  
   },
   "organizationPage": {
     "location": "Sijainti",
@@ -75,7 +93,7 @@
     "passLengthError": "Password has to be longer than 8 characters",
     "registerText": "Register",
     "alrdyHaveAccountText": "Already registered? Click here",
-    "registerError": "Username not permitted",
+    "registerError": "Username not permitted or non-optional fields missing",
     "registerErrorEmail": "Email format incorrect"
   },
   "history": {

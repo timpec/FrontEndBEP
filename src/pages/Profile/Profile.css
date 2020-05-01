@@ -1,20 +1,127 @@
+.profile_container {
+    display: block;
+    padding: 0 5%;
+    justify-content: center;
+}
+
+.card_container {
+    text-align: center;
+    padding: 0 0 1.5em 0;
+}
+
+.card {
+    background-color: #fff;
+    box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+}
+
+.friend_card {
+    background-color: #fff;
+    box-shadow: none;
+    margin: 1em 0;
+}
+
+.btn-primary  {
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+    border-radius: 0%;
+}
+.btn-primary:focus:hover{
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+}
+.btn-primary:hover{
+    background-color: lightblue;
+    border: lightblue;
+    color: #000000;
+}
+
+
+.intrest_badge {
+    width: auto;
+    margin: 0;
+}
+
+.list-group-item-profile {
+    background-color:#fff
+}
+
+
+.badge {
+    margin: 0.5em
+}
+  
 .logout_btnContainer {
     text-align: center;
-    padding: 3em 0 0 0;
+}
+
+.intrestfield_container {
+    width: 100%;
+}
+
+.intrestField{
+    width: 70%;
+    float: left
+}
+
+.iBtn {
+    width: 30%;
+    float: right;
+}
+  
+.deletefriend_btn {
+    width: 100%;
+    height: 30px;
+    padding: 0;
+    border-style: none;
+    font-size: 1.2em;
+    background-color: black;
+    color: #fff;
+}
+
+.deletefriend_btnContainer {
+    text-align: center;
 }
   
 .logout_btn {
-    width: 80%;
+    width: 100%;
     height: 50px;
-    border-radius: 2px;
+    border-style: none;
+    font-size: 1.2em;
+    background-color: black;
+    color: #fff;
+}
+
+.logout_body {
+    height: 50px;
+    width: 100%;
+    padding: 0%;
+}
+  
+.logout_btn:active{
+    vertical-align: top;
+    background-color: blue;
+    padding: 8px 13px 6px;
+}
+
+.deleteaccount_btn {
+    width: 100%;
+    height: 50px;
     border-style: none;
     font-size: 1.2em;
     background-color: lightcoral;
-    color: white;
-    box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.5);
+    color: black;
+}
+
+.deleteaccount_body {
+    padding-top: 1em;
+    height: 50px;
+    width: 100%;
+    padding: 0%;
 }
   
-.logot_btn:active{
+.deleteaccount_btn:active{
     vertical-align: top;
     background-color: blue;
     padding: 8px 13px 6px;
