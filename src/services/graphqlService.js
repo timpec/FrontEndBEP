@@ -166,6 +166,7 @@ const client = new ApolloClient({
       `
     })
     .then(result => {
+      console.log(result.data.events);
       return(result.data.events)
     });
   }
@@ -208,7 +209,7 @@ const client = new ApolloClient({
   }
   
   export const getDetailedEvent = (id, time) => { 
-    let userToken = "5ea5859e28b80937a44c760f";
+    const userToken = localStorage.getItem('userid');
     return client.query({
       query: gql`
       {

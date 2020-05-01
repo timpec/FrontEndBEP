@@ -9,7 +9,8 @@ export default function Profile() {
   useEffect(() => {
     const getData = async () => {
       //get id from localStorage
-      let data = await getYourEvents("5ea5859e28b80937a44c760f");
+      const userToken = localStorage.getItem('userid');
+      let data = await getYourEvents(userToken);
       console.log(data.reservations)
       updateReservations(data.reservations);
     };

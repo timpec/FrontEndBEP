@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import { getDetailedEvent, addReservation, removeReservation } from '../../services/graphqlService';
+import { Redirect, BrowserRouter } from "react-router-dom";
 import Map from '../../components/Map/map.gl'
 import MainCard from '../../components/cards/mainCard'
 import MoreInfoCard from '../../components/cards/moreInfoCard'
@@ -19,6 +20,7 @@ export default function MainFeed() {
   const [event, updateEvent] = React.useState([]);
   const [reservedData, updateReservedData] = React.useState("");
   const [reservedSuccess, updateReservedSuccess] = React.useState(false);
+  const [userToken, updateuserToken] = React.useState(true);
 
 useEffect(() => {
   const getData = async () => { 
@@ -31,9 +33,11 @@ useEffect(() => {
 
 const reserve = async () => {
   //get from the localStorage
-  let userToken = "5ea5859e28b80937a44c760f";
+  const userToken = localStorage.getItem('userid');
+  if(!userToken) {
+    updateuserToken(false)
+  }
   let data = await addReservation(userToken, id, reservedData);
-  console.log(data);
   if(data && data.data) {
     updateReservedSuccess(true)
   } else {
@@ -42,18 +46,22 @@ const reserve = async () => {
   }
 }
 const deleteReservation = async () => {
-  let userToken = "5ea5859e28b80937a44c760f";
-    let data = await removeReservation(userToken, id);
-    if(data && data.data) {
-      console.log("success");
-    } else {
-      //Create somekind of popup for the error
-      console.log("error");
-    } 
+  const userToken = localStorage.getItem('userid');
+  if(!userToken) {
+    updateuserToken(false)
+  }
+  let data = await removeReservation(userToken, id);
+  if(data && data.data) {
+    console.log("success");
+  } else {
+    //Create somekind of popup for the error
+    console.log("error");
+  } 
 } 
 
 return ( 
 <div>
+  {userToken ? <div></div>: <Redirect to='/login' />}
 {event.map(item => (
         <li className="list-group-item p-0" key={item.id}>
         <div className="list-group-item">
@@ -72,7 +80,7 @@ return (
         <Tab eventKey="map" mountOnEnter={true} title={<img alt="Map to the place" src={require("../../assets/map.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
             {item.location.lat && item.location.lon ? 
-              <Map props={item}/>
+              <Map props={[item]}/>
               : <div><h3>Ei Paikkaa määritelty</h3></div>
             }
           </div>
@@ -96,7 +104,7 @@ return (
         <Button variant="success" disabled={!reservedData || reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
 
           </div>):(
-           <div className="d-flex flex-row bd-highlight p-3">
+           <div className="d-flex flex-column bd-highlight p-3">
             <p>You have already reserved the event</p>
             <p>Your reservation: </p>
             {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}

@@ -1,12 +1,104 @@
-import React,{ useEffect, useState } from "react";
-import ReactMapboxGl, { Marker, Popup, Layer, Feature } from "react-mapbox-gl";
-import marker1 from '../../assets/marker.png'
-import { marker } from './marker';
-import { events } from "react-mapbox-gl/lib/map-events";
+import React, { useEffect, useState, useRef } from "react";
+import mapboxgl from "mapbox-gl";
+import "./map.gl.css";
+
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API;
+export default function Map(props) {
+  const mapboxElRef = useRef(null); // DOM
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    let data;
+    let data1;
+    console.log(props)
+    if (props.props.length && props.friendsEvents && props.yourEvents) {
+
+      const map = new mapboxgl.Map({
+        container: mapboxElRef.current,
+        style: "mapbox://styles/mapbox/navigation-preview-day-v4",
+        //OTA LOCALSTORAGESTA SINULLE
+        center: [24.941434860229492, 60.15963363647461], // initial geo location
+        zoom: 12, // initial zoom
+      });
+      map.once("load", function () {
+
+
+        if(props.props.friends) {
+          console.log("paska")
+        }
+        data = props.props.map((event, index) => ({
+          type: "Feature",
+          geometry: {
+            type: "Point",
+            coordinates: [event.location.lon, event.location.lat],
+          },
+          properties: {
+            id: index, // unique identifier in this case the index
+            name: event.name.fi,
+          },
+        }));
+
+        map.addSource("points", {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: data,
+          },
+        });
+        // Add our layer
+        map.addLayer({
+          id: "circles",
+          source: "points", // this should be the id of the source
+          type: "circle",
+          // paint properties
+          paint: {
+            "circle-opacity": 0.75,
+            "circle-stroke-width": 1,
+            "circle-radius": 15,
+            "circle-color": "#FFEB3B",
+          },
+        });
+      });
+      map.on("click", "circles", (e) => {
+        const id = e.features[0].properties.id;
+        const coordinates = e.features[0].geometry.coordinates.slice();
+
+        console.log(coordinates);
+        map.getCanvas().style.cursor = "pointer";
+
+        const { name } = e.features[0].properties;
+
+        const HTML = name;
+        new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
+      });
+      map.addControl(new mapboxgl.NavigationControl());
+
+    }
+
+    const getData = async () => {};
+    getData();
+  });
+
+  return (
+    <div className="mapContainer p-3">
+      {/* Assigned Mapbox container */}
+      <div className="mapBox" ref={mapboxElRef} />
+    </div>
+  );
+}
+
+/*
+
+*/
+
+/*
 const Mapbox = ReactMapboxGl({
   accessToken:
     process.env.REACT_APP_MAPBOX_API,
 });
+
+
+
 
 export default function Map(event) {
     const [popup, showPopup] = React.useState(false);
@@ -97,3 +189,4 @@ export default function Map(event) {
     }
  
 }
+*/
