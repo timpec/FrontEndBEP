@@ -9,17 +9,15 @@ import Map from "./pages/Map/Map";
 import Friends from "./pages/Friends/Friends";
 import Profile from "./pages/Profile/Profile";
 import Reservations from "./pages/Reservations/reservations";
-import { Redirect } from "react-router-dom";
+import { Redirect, BrowserRouter } from "react-router-dom";
 import DetailPage from "./pages/DetailPage/DetailPage";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 
 
 
 export default function App() {
-  const [loggedIn, setloggedIn] = React.useState(true);
-
 
   const checkAuthentication = () => {
     const user = localStorage.getItem('userid');
@@ -37,25 +35,31 @@ export default function App() {
     )} />
   )
 
-  return (
-    
-      <Router>
-        <div style={{ height: "100%" }}>
-          <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">Helmet</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="/MainFeed">Aloitus</Nav.Link>
-                <Nav.Link href="/Map">Kartta</Nav.Link>
-                <Nav.Link href="/Friends">Kaverit</Nav.Link>
-                <Nav.Link href="/Reservations">Varaukset</Nav.Link>
-                <Nav.Link href="/Profile">Profiili</Nav.Link>
-                <Nav.Link href="/login">Kirjaudu ulos</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
-          </Navbar>
+  const NavBar = () => {
+    return (
+      <Navbar bg="light" expand="lg">
+      <Navbar.Brand href="#home">Helmet</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link href="/MainFeed">Aloitus</Nav.Link>
+          <Nav.Link href="/Map">Kartta</Nav.Link>
+          <Nav.Link href="/Friends">Kaverit</Nav.Link>
+          <Nav.Link href="/Reservations">Varaukset</Nav.Link>
+          <Nav.Link href="/Profile">Profiili</Nav.Link>
+          <Nav.Link href="/login">Kirjaudu ulos</Nav.Link>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
+    )
+  }
 
+  const Main = withRouter(({ location}) => {
+
+    return(
+  <Router>
+        <div style={{ height: "100%" }}>
+        {location.pathname !== "/login" && location.pathname !== "/register" ?  (<NavBar />):(<div></div>)}
           <main style={{ marginTop: "64px" }}>
             <Route exact path="/">
               <Login />
@@ -80,16 +84,53 @@ export default function App() {
             </Route>
             <Route path="/Reservations" component={Reservations}>
               <Reservations/>
-            </Route>
-            <PrivateRoute path='/MainFeed' component={MainFeed} />
-            {/** KYTKE PÄÄLLE KUN ON AIKA 
-            <PrivateRoute path='/Map' component={MainFeed} />
-            <PrivateRoute path='/Friends' component={MainFeed} />
-            <PrivateRoute path='/Profile' component={MainFeed} />
-            <PrivateRoute path='/Reservations' component={MainFeed} />
+              </Route>
+              <PrivateRoute path='/MainFeed' component={MainFeed} /> 
+
+            {/** KYTKE PÄÄLLE KUN ON AIKA
+            <PrivateRoute path='/MainFeed' component={MainFeed} /> 
+            <PrivateRoute path='/Map' component={Map} />
+            <PrivateRoute path='/Friends' component={Friends} />
+            <PrivateRoute path='/Profile' component={Profile} />
+            <PrivateRoute path='/Reservations' component={Reservations} />
                */}
             </main>
         </div>
       </Router>
+  )
+  })
+
+  return (
+    <BrowserRouter>
+      <Main />    
+    </BrowserRouter>
     )
 }
+/** KYTKE PÄÄLLE KUN ON AIKA 
+            <PrivateRoute path='/Map' component={MainFeed} />
+            <PrivateRoute path='/Friends' component={MainFeed} />
+            <PrivateRoute path='/Profile' component={MainFeed} />
+            <PrivateRoute path='/Reservations' component={MainFeed} />
+               */
+
+               /*
+ location.pathname !== "/login" || location.pathname !== "/register" ?  (
+          <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">Helmet</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/MainFeed">Aloitus</Nav.Link>
+              <Nav.Link href="/Map">Kartta</Nav.Link>
+              <Nav.Link href="/Friends">Kaverit</Nav.Link>
+              <Nav.Link href="/Reservations">Varaukset</Nav.Link>
+              <Nav.Link href="/Profile">Profiili</Nav.Link>
+              <Nav.Link href="/login">Kirjaudu ulos</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
+        ) : (
+          <div></div>
+        )
+
+               */
