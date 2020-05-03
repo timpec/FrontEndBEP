@@ -55,7 +55,7 @@ export default function Friends() {
     return (
         <div className="friendsPage">
             <div className="friendsPageTitle">
-                <h2 class="font-weight-bold">Look for friends</h2>
+                <h2 class="font-weight-bold">{I18n.t("friends.lookForFriends")}</h2>
             </div>
             <div className="md-form mt-0 d-flex flex-row">
                 <input className="form-control" onChange={updateSearch} type="text" id="Input" placeholder="Search" aria-label="Search" name="searchField"/>
@@ -67,7 +67,7 @@ export default function Friends() {
                     <Card.Body>
                       <Card.Title className="card_text"><h3 class="font-weight-bold">{item.username}</h3></Card.Title>
                       <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{item.email}</h5></Card.Subtitle>
-                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">From: {item.address.locality}</h5></Card.Subtitle>
+                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{I18n.t("friends.from")} {item.address.locality}</h5></Card.Subtitle>
                     </Card.Body>
                     <Card.Body>
                     {item.intrests.map(i => (
@@ -80,7 +80,7 @@ export default function Friends() {
                         type="submit"
                         className="deletefriend_btn"
                         onClick={() => addNewFriend(item.id)}>
-                        Add to friendlist
+                        {I18n.t("friends.addFriend")}
                         </button>
                         </form>
                     </div>

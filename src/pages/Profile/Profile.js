@@ -170,7 +170,7 @@ export default function Profile (props) {
                       <Form.Group as={Row} controlId="intrestRemove">
                         <Col sm="10">
                           <Form.Control as="select" onChange={e => setIntrestRemove(e.target.value)}>
-                          <option value="" selected disabled hidden>Choose here</option>
+                          <option value="" selected disabled hidden>{I18n.t("profile.chooseHere")}</option>
                             {intrests.map(item => (
                               <option>{item}</option>
                             ))}
@@ -201,9 +201,9 @@ export default function Profile (props) {
                   {friends.map(item => (
                     <Card key={item.username} className="friend_card">
                       <Card.Body>
-                      <Card.Title><h4 class="font-weight-bold">{item.username}</h4></Card.Title>
-                      <Card.Subtitle><h5 class="font-weight-bold">{item.address.locality}</h5></Card.Subtitle>
-                      <Card.Subtitle><h5 class="font-weight-bold">{item.email}</h5></Card.Subtitle>
+                      <Card.Title className="card_text"><h4 class="font-weight-bold">{item.username}</h4></Card.Title>
+                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{item.email}</h5></Card.Subtitle>
+                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{I18n.t("profile.from")} {item.address.locality}</h5></Card.Subtitle>
                       </Card.Body>
                       <Card.Body>
                       <div>

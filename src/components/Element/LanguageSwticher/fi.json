@@ -20,7 +20,9 @@
     "deleteUser_title": "Poista tili",
     "delete": "Poista",
     "add": "Lisää",
-    "add_delete": "Lisää / Poista"
+    "add_delete": "Lisää / Poista",
+    "from": "Kotoisin:",
+    "chooseHere": "Valitse"
 
   },
   "organizationPage": {
@@ -44,8 +46,10 @@
   "generic": {
     "logOut": "Kirjaudu Ulos"
   },
-  "chatbot": {
-    "Greet": "Moikka! Miten menee?"
+  "friends": {
+    "lookForFriends": "Etsi kavereita",
+    "from": "Kotoisin:",
+    "addFriend": "Lisää kaverilistalle"
   },
   "shop": {
     "shopTitle": "Kauppa",
