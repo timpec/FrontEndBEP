@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { Redirect } from "react-router-dom";
 import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import {getTodayEvents, getEvents} from '../../services/graphqlService';

@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 import { getDetailedEvent, addReservation, removeReservation } from '../../services/graphqlService';
-import { Redirect, BrowserRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Map from '../../components/Map/map.gl'
 import MainCard from '../../components/cards/mainCard'
 import MoreInfoCard from '../../components/cards/moreInfoCard'
@@ -42,7 +42,6 @@ const reserve = async () => {
   let data = await addReservation(userToken, id, reservedData);
   if(data && data.data) {
     updateReservedSuccess(true)
-    updateSuccessMessage(true)
   } else {
     updateErrorMessage(true)
   }
@@ -89,8 +88,8 @@ return (
         <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
             <RouteCard  routes={item.location.route.plan.itineraries}/>
         </Tab>
-        <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null ? "reserved" : "notReserved") + ".svg")}/>}>
-        {item.reservedById == null ? (
+        <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null || reservedSuccess ? "reserved" : "notReserved") + ".svg")}/>}>
+        {item.reservedById == null || reservedSuccess ? (
              <div className="d-flex flex-row bd-highlight p-3">
              <div className="d-flex flex-column bd-highlight p-3">
           <Dropdown>
@@ -104,10 +103,10 @@ return (
         </Dropdown.Menu>
         </Dropdown>
         <Button variant="success m-3" disabled={!reservedData || reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
-        <div hidden={!errorMessage} class="alert alert-danger m-3" role="alert">
+        <div hidden={!errorMessage} className="alert alert-danger m-3" role="alert">
          Something went wrong
          </div>
-         <div hidden={reservedSuccess} class="alert alert-info m-3" role="alert">
+         <div hidden={!reservedSuccess} className="alert alert-info m-3" role="alert">
          Reserved the event!
          </div>
          </div>
@@ -117,8 +116,11 @@ return (
             <p>Your reservation: </p>
             
             {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}
-            <div hidden={!errorMessage} class="alert alert-danger m-3" role="alert">
-         Something went wrong
+            <div hidden={!errorMessage} className="alert alert-danger m-3" role="alert">
+         Something went wrong!
+         </div>
+         <div hidden={!successMessage} className="alert alert-info m-3" role="alert">
+         Deleted the event!
          </div>
             <Button variant="danger" onClick={deleteReservation}>Delete reservation</Button>{' '}
           </div>)}

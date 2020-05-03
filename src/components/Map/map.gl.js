@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "./map.gl.css";
 
@@ -7,8 +7,8 @@ let map;
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API;
 export default function Map(props) {
   const mapboxElRef = useRef(null); // DOM
-  const [events, setEvents] = useState([]);
   
+  //TODO: ALL EVENTS AND SHIIIT
   useEffect(() => {
     console.log(props)
 
@@ -107,7 +107,6 @@ export default function Map(props) {
         });
 
         map.on("click", "yourEventsId", (e) => {
-          const id = e.features[0].properties.id;
           const coordinates = e.features[0].geometry.coordinates.slice();
   
           map.getCanvas().style.cursor = "pointer";
@@ -121,7 +120,6 @@ export default function Map(props) {
        
         
         map.on("click", "eventsId", (e) => {
-          const id = e.features[0].properties.id;
           const coordinates = e.features[0].geometry.coordinates.slice();
   
           map.getCanvas().style.cursor = "pointer";
@@ -131,9 +129,9 @@ export default function Map(props) {
           const HTML = `<p><b>${name}</b></p>
           <p><a href="/DetailPage/${eventId}">More details</a></p>`;
           new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
+          console.log(friendsEvents);
         });
       });
-
       
     } else if(props.event) {
       let data;
@@ -179,7 +177,6 @@ export default function Map(props) {
         });
       });
       map.on("click", "circles", (e) => {
-        const id = e.features[0].properties.id;
         const coordinates = e.features[0].geometry.coordinates.slice();
 
         map.getCanvas().style.cursor = "pointer";
