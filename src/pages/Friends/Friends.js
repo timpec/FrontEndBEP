@@ -1,33 +1,20 @@
 import React, {useEffect} from "react";
-import { Redirect } from "react-router-dom";
-import Card, { CardTitle, CardBody } from 'react-bootstrap/Card';
-import Collapse from 'react-bootstrap/Collapse';
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import ListGroup from 'react-bootstrap/ListGroup';
-import ListGroupItem from 'react-bootstrap/ListGroupItem';
 import I18n from "../../components/Element/LanguageSwticher/I18n";
 import "./Friends.css";
-import {getUser, searchUsers, addFriend} from '../../services/userGqlService';
+import {searchUsers, addFriend} from '../../services/userGqlService';
 
 
 export default function Friends() {
 
     const [users, updateList] = React.useState([]);
-    const [address, updateAddress] = React.useState([]);
-    const [intrests, updateIntrest] = React.useState([]);
-    const [open, setOpen] = React.useState(false);
-
     const [searchField, setSearchField] = React.useState("");
-    //const [redirectLogin, changeRedirectLogin] = React.useState(false);
   
   useEffect(() => {
+      setSearchField("")
     const getData = async () => {
-      let data = await searchUsers(searchField);
+      let data = await searchUsers("");
       console.log(data);
       updateList(data);
     }
@@ -44,7 +31,6 @@ export default function Friends() {
     }
 
     const addNewFriend = async (friends) => {
-        const id = localStorage.getItem('userid');
         await addFriend(friends);
         let list = await searchUsers(searchField)
         console.log(list)

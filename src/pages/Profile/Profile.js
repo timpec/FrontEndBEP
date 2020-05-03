@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import { Redirect } from "react-router-dom";
-import Card, { CardTitle, CardBody } from 'react-bootstrap/Card';
-import Collapse from 'react-bootstrap/Collapse';
+import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
@@ -19,13 +18,10 @@ export default function Profile (props) {
     const [address, updateAddress] = React.useState([]);
     const [intrests, updateIntrest] = React.useState([]);
     const [friends, updateFriends] = React.useState([])
-    const [open, setOpen] = React.useState(false);
-
   
   const [emailField, setEmailField] = React.useState("");
   const [addressField, setAddressField] = React.useState("");
   const [passwordField, setPasswordField] = React.useState("");
-  
 
   const [intrestAdd, setIntrestAdd] = React.useState("");
   const [intrestRemove, setIntrestRemove] = React.useState("");
@@ -70,7 +66,7 @@ export default function Profile (props) {
   const removeUserIntrest = async () => {
     const id = localStorage.getItem('userid');
     console.log(intrestRemove);
-    if (intrestRemove != "") {
+    if (intrestRemove !== "") {
       const data = await removeIntrests(id, intrestRemove);
       console.log(data);
       updateIntrest(data.intrests)
