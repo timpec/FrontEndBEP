@@ -2,31 +2,150 @@ import React, { useEffect, useState, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "./map.gl.css";
 
+let map;
+
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API;
 export default function Map(props) {
   const mapboxElRef = useRef(null); // DOM
   const [events, setEvents] = useState([]);
-
+  
   useEffect(() => {
-    let data;
-    let data1;
     console.log(props)
-    if (props.props.length && props.friendsEvents && props.yourEvents) {
 
+    if (props.props && props.props.YourEvents && props.props.events.length && props.props.friendsEvents) {
+
+      let events;
+      let friendsEvents;
+      let YourEvents;
+      
+      map = new mapboxgl.Map({
+        container: mapboxElRef.current,
+        style: "mapbox://styles/mapbox/navigation-preview-day-v4",
+        //OTA LOCALSTORAGESTA SINULLE
+        center: [25.012341,60.782132], // initial geo location
+        zoom: 12, // initial zoom
+        });
+
+        map.once("load", () => {
+          events = props.props.events.map((event, index) => ({
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [event.location.lon, event.location.lat],
+            },
+            properties: {
+              id: index, // unique identifier in this case the index
+              name: event.name.fi,
+              eventId: event.id
+            },
+          }));
+          
+          YourEvents = props.props.YourEvents.reservations.map((reservation, index) => ({
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: [reservation.location.lon, reservation.location.lat],
+            },
+            properties: {
+              id: index, // unique identifier in this case the index
+              name: reservation.name.fi,
+              eventId: reservation.id
+            },
+          }));
+          
+          friendsEvents = props.props.friendsEvents.friends.map((friend, index) => ({
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              //coordinates: [reservation.location.lon, reservation.location.lat],
+            },
+            properties: {
+              id: index, // unique identifier in this case the index
+              //name: reservation.name.fi,
+            },
+          }))
+          map.addSource("events", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: events,
+            },
+          });
+
+          map.addSource("yourEvents", {
+            type: "geojson",
+            data: {
+              type: "FeatureCollection",
+              features: YourEvents,
+            },
+          });
+
+          map.addLayer({
+            id: "eventsId",
+            source: "events", // this should be the id of the source
+            type: "circle",
+            // paint properties
+            paint: {
+              "circle-opacity": 0.75,
+              "circle-stroke-width": 1,
+              "circle-radius": 15,
+              "circle-color": "#FFEB3B",
+            },
+          });
+
+        map.addLayer({
+          id: "yourEventsId",
+          source: "yourEvents", // this should be the id of the source
+          type: "circle",
+          // paint properties
+          paint: {
+            "circle-opacity": 0.75,
+            "circle-stroke-width": 1,
+            "circle-radius": 15,
+            "circle-color": "#0f0",
+          },
+        });
+
+        map.on("click", "yourEventsId", (e) => {
+          const id = e.features[0].properties.id;
+          const coordinates = e.features[0].geometry.coordinates.slice();
+  
+          map.getCanvas().style.cursor = "pointer";
+  
+          const { name, eventId } = e.features[0].properties;
+  
+          const HTML = `<p><b>${name}</b></p>
+          <p><a href="/DetailPage/${eventId}">More details</a></p>`;
+          new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
+        });
+       
+        
+        map.on("click", "eventsId", (e) => {
+          const id = e.features[0].properties.id;
+          const coordinates = e.features[0].geometry.coordinates.slice();
+  
+          map.getCanvas().style.cursor = "pointer";
+  
+          const { name, eventId } = e.features[0].properties;
+  
+          const HTML = `<p><b>${name}</b></p>
+          <p><a href="/DetailPage/${eventId}">More details</a></p>`;
+          new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
+        });
+      });
+
+      
+    } else if(props.event) {
+      let data;
       const map = new mapboxgl.Map({
         container: mapboxElRef.current,
         style: "mapbox://styles/mapbox/navigation-preview-day-v4",
         //OTA LOCALSTORAGESTA SINULLE
-        center: [24.941434860229492, 60.15963363647461], // initial geo location
+        center: [props.event[0].location.lon, props.event[0].location.lat], // initial geo location
         zoom: 12, // initial zoom
       });
       map.once("load", function () {
-
-
-        if(props.props.friends) {
-          console.log("paska")
-        }
-        data = props.props.map((event, index) => ({
+        data = props.event.map((event, index) => ({
           type: "Feature",
           geometry: {
             type: "Point",
@@ -54,7 +173,7 @@ export default function Map(props) {
           paint: {
             "circle-opacity": 0.75,
             "circle-stroke-width": 1,
-            "circle-radius": 15,
+            "circle-radius": 10,
             "circle-color": "#FFEB3B",
           },
         });
@@ -63,32 +182,66 @@ export default function Map(props) {
         const id = e.features[0].properties.id;
         const coordinates = e.features[0].geometry.coordinates.slice();
 
-        console.log(coordinates);
         map.getCanvas().style.cursor = "pointer";
 
         const { name } = e.features[0].properties;
 
-        const HTML = name;
+        const HTML = `<p>Country: <b>${name}</b></p>
+        <button></button`;
         new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
       });
       map.addControl(new mapboxgl.NavigationControl());
-
     }
 
     const getData = async () => {};
     getData();
   });
 
+  const pressedButton = (id) => {
+    let property;
+
+    switch(id){
+      case 1:
+        property = map.getLayoutProperty("eventsId", 'visibility');
+        if(property === "none") {
+          map.setLayoutProperty("eventsId", 'visibility', 'visible');
+        } else {
+          map.setLayoutProperty("eventsId", 'visibility', 'none');
+        }
+        break;
+      case 2:
+        property = map.getLayoutProperty("yourEventsId", 'visibility');
+        if(property === "none") {
+          map.setLayoutProperty("yourEventsId", 'visibility', 'visible');
+        } else {
+          map.setLayoutProperty("yourEventsId", 'visibility', 'none');
+        }
+        break;
+
+      default:
+        break;
+    }
+
+  }
+
   return (
     <div className="mapContainer p-3">
-      {/* Assigned Mapbox container */}
+      {props.props && props.props.YourEvents && props.props.events.length && props.props.friendsEvents ? 
+      (
+        <div className="d-flex flex-row justify-content-around p-3">
+      <button type="button" onClick={(() => {pressedButton(1)})} className="btn btn-primary">Events</button>
+      <button type="button" onClick={(() => {pressedButton(2)})} className="btn btn-primary">Your Events</button>
+      <button type="button" onClick={(() => {pressedButton(3)})} className="btn btn-primary">friends Events</button>
+      </div>
+      )
+      : <div></div>}
       <div className="mapBox" ref={mapboxElRef} />
     </div>
   );
 }
 
 /*
-
+  
 */
 
 /*

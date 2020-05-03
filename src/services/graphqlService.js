@@ -166,7 +166,6 @@ const client = new ApolloClient({
       `
     })
     .then(result => {
-      console.log(result.data.events);
       return(result.data.events)
     });
   }
@@ -318,7 +317,16 @@ const client = new ApolloClient({
       return error
     })
   }
-  
+
+  export const getDataPackage = async (id) => {
+    //getEvents, getFriendsEvents, getYourEvents,
+    let events = await getEvents();
+    let friendsEvents = await getFriendsEvents(id);
+    let yourEvents = await getYourEvents(id);
+
+    let dataPackage = {events: events, friendsEvents: friendsEvents, YourEvents: yourEvents}
+    return dataPackage
+  }
 
   export const postLogin = (username, password) => { 
     return client.query({

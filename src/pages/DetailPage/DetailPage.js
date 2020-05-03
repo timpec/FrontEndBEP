@@ -21,6 +21,8 @@ export default function MainFeed() {
   const [reservedData, updateReservedData] = React.useState("");
   const [reservedSuccess, updateReservedSuccess] = React.useState(false);
   const [userToken, updateuserToken] = React.useState(true);
+  const [errorMessage, updateErrorMessage] = React.useState(false);
+  const [successMessage, updateSuccessMessage] = React.useState(false);
 
 useEffect(() => {
   const getData = async () => { 
@@ -40,9 +42,9 @@ const reserve = async () => {
   let data = await addReservation(userToken, id, reservedData);
   if(data && data.data) {
     updateReservedSuccess(true)
+    updateSuccessMessage(true)
   } else {
-    //Create somekind of popup for the error
-    console.log("error");
+    updateErrorMessage(true)
   }
 }
 const deleteReservation = async () => {
@@ -52,10 +54,9 @@ const deleteReservation = async () => {
   }
   let data = await removeReservation(userToken, id);
   if(data && data.data) {
-    console.log("success");
+    updateSuccessMessage(true)
   } else {
-    //Create somekind of popup for the error
-    console.log("error");
+    updateErrorMessage(true)
   } 
 } 
 
@@ -67,7 +68,7 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="routes" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
             <MainCard ending_day={item.event_dates.ending_day} starting_day={item.event_dates.starting_day} address={item.location.address.street_address}/>
         </Tab>
@@ -80,7 +81,7 @@ return (
         <Tab eventKey="map" mountOnEnter={true} title={<img alt="Map to the place" src={require("../../assets/map.svg")}/>}>
           <div className="d-flex flex-row bd-highlight mb-3">
             {item.location.lat && item.location.lon ? 
-              <Map props={[item]}/>
+              <Map event={[item]}/>
               : <div><h3>Ei Paikkaa määritelty</h3></div>
             }
           </div>
@@ -90,9 +91,10 @@ return (
         </Tab>
         <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null ? "reserved" : "notReserved") + ".svg")}/>}>
         {item.reservedById == null ? (
-          <div className="d-flex flex-row bd-highlight p-3">
+             <div className="d-flex flex-row bd-highlight p-3">
+             <div className="d-flex flex-column bd-highlight p-3">
           <Dropdown>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+        <Dropdown.Toggle variant="success m-3 d-flex justify-content-center" id="dropdown-basic">
         {!reservedData ? "Date" : moment(new Date(parseInt(reservedData * 1000))).calendar() }
         </Dropdown.Toggle>
         <Dropdown.Menu>
@@ -101,13 +103,23 @@ return (
         ))}
         </Dropdown.Menu>
         </Dropdown>
-        <Button variant="success" disabled={!reservedData || reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
-
+        <Button variant="success m-3" disabled={!reservedData || reservedSuccess} onClick={reserve}>Reserve</Button>{' '}
+        <div hidden={!errorMessage} class="alert alert-danger m-3" role="alert">
+         Something went wrong
+         </div>
+         <div hidden={reservedSuccess} class="alert alert-info m-3" role="alert">
+         Reserved the event!
+         </div>
+         </div>
           </div>):(
            <div className="d-flex flex-column bd-highlight p-3">
             <p>You have already reserved the event</p>
             <p>Your reservation: </p>
+            
             {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}
+            <div hidden={!errorMessage} class="alert alert-danger m-3" role="alert">
+         Something went wrong
+         </div>
             <Button variant="danger" onClick={deleteReservation}>Delete reservation</Button>{' '}
           </div>)}
 
