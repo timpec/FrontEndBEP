@@ -114,7 +114,7 @@ const client = new ApolloClient({
     return client.query({
       query: gql`
       {
-        events(today: true) {
+        events(today: true, limit:3) {
           id
           description{
             images {
@@ -130,11 +130,11 @@ const client = new ApolloClient({
     });
   }
 
-  export const getEvents = (string) => { 
+  export const getEvents = (string) => {
     return client.query({
       query: gql`
       {
-        events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 10"}) {
+        events {
           id
           name {
             fi

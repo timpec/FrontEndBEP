@@ -59,7 +59,7 @@ return (
       <h3  className="align-self-center">This week:</h3>
       <div className="d-flex p-1 justify-content-around">
       {todayEvents.map(item => (
-          <Image className="MainFeedThumbNail" onClick={() => {redirectToDetailPage(item.id)}} key={item.id}  src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
+          <Image className="MainFeedThumbNail" onClick={() => {redirectToDetailPage(item.id)}} key={item.id}  src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
         ))}
       
       </div>
