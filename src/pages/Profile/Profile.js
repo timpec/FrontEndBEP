@@ -94,39 +94,39 @@ export default function Profile (props) {
           <div className="card_container">
             <Card>
               <Card.Body>
-                  <h2 class="font-weight-bold">{user.username}</h2>
+                <h2 class="font-weight-bold">{user.username}</h2>
               </Card.Body>
               <Card.Body>
-              <ListGroup className="list-group-flush">
-                <ListGroupItem key="email" ><h5 class="font-weight-bold">{user.email}</h5></ListGroupItem>
-                <ListGroupItem key="address"><h5 class="font-weight-bold">{address.street_address}, {address.locality}</h5></ListGroupItem>
-              </ListGroup>
+                <ListGroup className="list-group-flush">
+                  <ListGroupItem key="email" ><h5 class="font-weight-bold">{user.email}</h5></ListGroupItem>
+                  <ListGroupItem key="address"><h5 class="font-weight-bold">{address.street_address}, {address.locality}</h5></ListGroupItem>
+                </ListGroup>
               </Card.Body >
               <Accordion>
-              <Accordion.Toggle as={Button} variant="link" eventKey="0">{I18n.t("profile.modify_col")}</Accordion.Toggle>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body id="prof_col"> 
-                  <Form>
-                    <Form.Label class="font-weight-bold">{I18n.t("profile.modify_title")}</Form.Label>
-                  <Form.Group as={Row} controlId="formEmail">
-                      <Col sm="10">
-                        <Form.Control type="email" placeholder={I18n.t("profile.modify_email")} onChange={email => setEmailField(email.target.value)} />
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formAddress">
-                      <Col sm="10">
-                        <Form.Control type="text" placeholder={I18n.t("profile.modify_address")} onChange={address => setAddressField(address.target.value)} />
-                      </Col>
-                    </Form.Group>
-                    <Form.Group as={Row} controlId="formPassword">
-                      <Col sm="10">
-                        <Form.Control type="password" placeholder={I18n.t("profile.modify_password")} onChange={password => setPasswordField(password.target.value)} />
-                      </Col>
-                    </Form.Group>
-                    <Button variant="primary" type="submit" onClick={() => editUser()}>{I18n.t("profile.modify_btn")}</Button>
-                  </Form>
-                </Card.Body>
-              </Accordion.Collapse>
+                <Accordion.Toggle as={Button} variant="link" eventKey="0">{I18n.t("profile.modify_col")}</Accordion.Toggle>
+                  <Accordion.Collapse eventKey="0">
+                    <Card.Body id="prof_col"> 
+                      <Form>
+                        <Form.Label class="font-weight-bold">{I18n.t("profile.modify_title")}</Form.Label>
+                          <Form.Group as={Row} controlId="formEmail">
+                            <Col sm="10">
+                              <Form.Control type="email" placeholder={I18n.t("profile.modify_email")} onChange={email => setEmailField(email.target.value)} />
+                            </Col>
+                          </Form.Group>
+                          <Form.Group as={Row} controlId="formAddress">
+                            <Col sm="10">
+                              <Form.Control type="text" placeholder={I18n.t("profile.modify_address")} onChange={address => setAddressField(address.target.value)} />
+                            </Col>
+                          </Form.Group>
+                          <Form.Group as={Row} controlId="formPassword">
+                            <Col sm="10">
+                              <Form.Control type="password" placeholder={I18n.t("profile.modify_password")} onChange={password => setPasswordField(password.target.value)} />
+                            </Col>
+                          </Form.Group>
+                        <Button variant="primary" type="submit" onClick={() => editUser()}>{I18n.t("profile.modify_btn")}</Button>
+                      </Form>
+                    </Card.Body>
+                  </Accordion.Collapse>
               </Accordion>
             </Card>
           </div>
@@ -136,15 +136,15 @@ export default function Profile (props) {
                 <h3 class="font-weight-bold">{I18n.t("profile.intrests_title")}</h3>
               </Card.Body>
               <Card.Body>
-              <div>
-                  {intrests.map(item => (
-                    <h4 class="font-weight-bold" key={item} className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
-                  ))}
-                  </div>
+                <div>
+                {intrests.map(item => (
+                  <h4 class="font-weight-bold" key={item} className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
+                ))}
+                </div>
               </Card.Body>
               <Accordion>
-              <Accordion.Toggle as={Button} variant="link" eventKey="2">{I18n.t("profile.add_delete")}</Accordion.Toggle>
-              <Accordion.Collapse eventKey="2">
+                <Accordion.Toggle as={Button} variant="link" eventKey="2">{I18n.t("profile.add_delete")}</Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
                 <Card.Body id="intrest_add_col"> 
                   <Form>
                     <div className="intrestfield_container">
@@ -261,6 +261,5 @@ export default function Profile (props) {
         </Card>
         </div>
         </div>
-
     )
 }
