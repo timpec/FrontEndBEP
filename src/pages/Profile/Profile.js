@@ -94,12 +94,12 @@ export default function Profile (props) {
           <div className="card_container">
             <Card>
               <Card.Body>
-                <h2 class="font-weight-bold">{user.username}</h2>
+                <h2 className="font-weight-bold">{user.username}</h2>
               </Card.Body>
               <Card.Body>
                 <ListGroup className="list-group-flush">
-                  <ListGroupItem key="email" ><h5 class="font-weight-bold">{user.email}</h5></ListGroupItem>
-                  <ListGroupItem key="address"><h5 class="font-weight-bold">{address.street_address}, {address.locality}</h5></ListGroupItem>
+                  <ListGroupItem key="email" ><h5 className="font-weight-bold">{user.email}</h5></ListGroupItem>
+                  <ListGroupItem key="address"><h5 className="font-weight-bold">{address.street_address}, {address.locality}</h5></ListGroupItem>
                 </ListGroup>
               </Card.Body >
               <Accordion>
@@ -107,7 +107,7 @@ export default function Profile (props) {
                   <Accordion.Collapse eventKey="0">
                     <Card.Body id="prof_col"> 
                       <Form>
-                        <Form.Label class="font-weight-bold">{I18n.t("profile.modify_title")}</Form.Label>
+                        <Form.Label className="font-weight-bold">{I18n.t("profile.modify_title")}</Form.Label>
                           <Form.Group as={Row} controlId="formEmail">
                             <Col sm="10">
                               <Form.Control type="email" placeholder={I18n.t("profile.modify_email")} onChange={email => setEmailField(email.target.value)} />
@@ -133,12 +133,12 @@ export default function Profile (props) {
           <div className="card_container">
             <Card>
               <Card.Body>
-                <h3 class="font-weight-bold">{I18n.t("profile.intrests_title")}</h3>
+                <h3 className="font-weight-bold">{I18n.t("profile.intrests_title")}</h3>
               </Card.Body>
               <Card.Body>
                 <div>
                 {intrests.map(item => (
-                  <h4 class="font-weight-bold" key={item} className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
+                  <h4 className="font-weight-bold" key={item} className="intrest_badge"><Badge pill variant="secondary">{item}</Badge></h4>
                 ))}
                 </div>
               </Card.Body>
@@ -168,7 +168,7 @@ export default function Profile (props) {
                           <Form.Control as="select" onChange={e => setIntrestRemove(e.target.value)}>
                           <option value="" selected disabled hidden>{I18n.t("profile.chooseHere")}</option>
                             {intrests.map(item => (
-                              <option>{item}</option>
+                              <option key={item}>{item}</option>
                             ))}
                           </Form.Control>
                         </Col>
@@ -187,7 +187,7 @@ export default function Profile (props) {
           <div className="card_container">
             <Card>
               <Card.Body>
-                <h3 class="font-weight-bold">{I18n.t("profile.friends_title")}</h3>
+                <h3 className="font-weight-bold">{I18n.t("profile.friends_title")}</h3>
               </Card.Body>
               <Accordion>
               <Accordion.Toggle as={Button} variant="link" eventKey="1">{I18n.t("profile.friends_btn")}</Accordion.Toggle>
@@ -197,9 +197,9 @@ export default function Profile (props) {
                   {friends.map(item => (
                     <Card key={item.username} className="friend_card">
                       <Card.Body>
-                      <Card.Title className="card_text"><h4 class="font-weight-bold">{item.username}</h4></Card.Title>
-                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{item.email}</h5></Card.Subtitle>
-                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{I18n.t("profile.from")} {item.address.locality}</h5></Card.Subtitle>
+                      <Card.Title className="card_text"><h4 className="font-weight-bold">{item.username}</h4></Card.Title>
+                      <Card.Subtitle className="card_text"><h5 className="font-weight-bold">{item.email}</h5></Card.Subtitle>
+                      <Card.Subtitle className="card_text"><h5 className="font-weight-bold">{I18n.t("profile.from")} {item.address.locality}</h5></Card.Subtitle>
                       </Card.Body>
                       <Card.Body>
                       <div>
@@ -227,7 +227,7 @@ export default function Profile (props) {
           <div className="card_container">
           <Card>
             <Card.Body>
-            <Card.Title><h4 class="font-weight-bold">{I18n.t("profile.deleteUser_title")}</h4></Card.Title>
+            <Card.Title><h4 className="font-weight-bold">{I18n.t("profile.deleteUser_title")}</h4></Card.Title>
             </Card.Body>
             <Accordion>
               <Accordion.Toggle as={Button} variant="link" eventKey="3">{I18n.t("profile.deleteConfirm")}</Accordion.Toggle>

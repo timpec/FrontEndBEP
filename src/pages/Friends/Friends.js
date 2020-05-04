@@ -12,9 +12,8 @@ export default function Friends() {
     const [searchField, setSearchField] = React.useState("");
   
   useEffect(() => {
-      setSearchField("")
     const getData = async () => {
-      let data = await searchUsers("");
+      let data = await searchUsers(searchField);
       console.log(data);
       updateList(data);
     }
@@ -41,23 +40,23 @@ export default function Friends() {
     return (
         <div className="friendsPage">
             <div className="friendsPageTitle">
-                <h2 class="font-weight-bold">{I18n.t("friends.lookForFriends")}</h2>
+                <h2 className="font-weight-bold">{I18n.t("friends.lookForFriends")}</h2>
             </div>
             <div className="md-form mt-0 d-flex flex-row">
                 <input className="form-control" onChange={updateSearch} type="text" id="Input" placeholder="Search" aria-label="Search" name="searchField"/>
             </div>
             <div className="friend_card_cont">
             {users.map(item => (
-                <div className="friend_card">
-                <Card key={item.username}>
+                <div key={item.email} className="friend_card">
+                <Card>
                     <Card.Body>
-                      <Card.Title className="card_text"><h3 class="font-weight-bold">{item.username}</h3></Card.Title>
-                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{item.email}</h5></Card.Subtitle>
-                      <Card.Subtitle className="card_text"><h5 class="font-weight-bold">{I18n.t("friends.from")} {item.address.locality}</h5></Card.Subtitle>
+                      <Card.Title className="card_text"><h3 className="font-weight-bold">{item.username}</h3></Card.Title>
+                      <Card.Subtitle className="card_text"><h5 className="font-weight-bold">{item.email}</h5></Card.Subtitle>
+                      <Card.Subtitle className="card_text"><h5 className="font-weight-bold">{I18n.t("friends.from")} {item.address.locality}</h5></Card.Subtitle>
                     </Card.Body>
                     <Card.Body>
                     {item.intrests.map(i => (
-                        <Badge key={item.username} pill variant="secondary">{i}</Badge>
+                        <Badge key={i} pill variant="secondary">{i}</Badge>
                     ))}
                     </Card.Body>
                     <div className="deletefriend_btnContainer">
