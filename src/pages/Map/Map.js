@@ -1,24 +1,16 @@
 import React, { useEffect } from "react";
 import Mapbox from '../../components/Map/map.gl'
-import {getEvents, getFriendsEvents, getYourEvents} from '../../services/graphqlService';
+import { getDataPackage } from '../../services/graphqlService';
 
 export default function Map() {
-    const [events, updateEvents] = React.useState([]);
-    const [friendsEvents, updateFriendsEvents] = React.useState([]);
-    const [yourEvents, updateYourEvents] = React.useState([]);
-    const [active, updateActive] = React.useState(1);
+    const [dataPackage, updateDataPackage] = React.useState([]);
 
     useEffect(() => {
         const getData = async () => {
           const userToken = localStorage.getItem('userid');
-          let data = await getEvents();
-          updateEvents(data);
-
-          let friends = await getFriendsEvents(userToken);
-          updateFriendsEvents(friends);
-
-          let yourEvents = await getYourEvents(userToken);
-          updateYourEvents(yourEvents);
+          let data = await getDataPackage(userToken);
+          console.log(data);
+          updateDataPackage(data);
         }
 
         getData();
@@ -39,8 +31,8 @@ export default function Map() {
               <button type="button" disabled className="btn btn-secondary">Closest</button>:
               <button type="button" onClick={(() => {pressedButton(3)})} className="btn btn-primary">Closest</button>
             }
-          </div>*/}
-            <Mapbox props={events} yourEvents={yourEvents} friendsEvents={friendsEvents}/>
+          </div>*/
+            <Mapbox props={dataPackage} />}
             </div> 
     )
 }

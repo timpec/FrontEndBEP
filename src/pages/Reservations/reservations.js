@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { getYourEvents } from "../../services/graphqlService";
-import moment from "moment"
 
 export default function Profile() {
   const [reservations, updateReservations] = React.useState([]);
-  const [joku, updateJoku] = React.useState([]);
 
   useEffect(() => {
     const getData = async () => {
@@ -15,7 +13,7 @@ export default function Profile() {
       updateReservations(data.reservations);
     };
     getData();
-  }, [joku]);
+  });
 
   return (
     <div>
