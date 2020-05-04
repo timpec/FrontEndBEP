@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3001/Graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
