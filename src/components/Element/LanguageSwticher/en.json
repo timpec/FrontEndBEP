@@ -20,7 +20,9 @@
     "deleteUser_title": "Delete account",
     "delete": "Delete",
     "add": "Add",
-    "add_delete": "Add / Delete"
+    "add_delete": "Add / Delete",
+    "from": "From:",
+    "chooseHere": "Choose"
   
   },
   "organizationPage": {
@@ -44,8 +46,10 @@
   "generic": {
     "logOut": "Log out"
   },
-  "chatbot": {
-    "Greet": "Hi!, How is it going?"
+  "friends": {
+    "lookForFriends": "Look for friends",
+    "from": "From:",
+    "addFriend": "Add to friendslist"
   },
   "shop": {
     "shopTitle": "Shop",

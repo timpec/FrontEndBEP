@@ -1,0 +1,25 @@
+.text {
+    font-weight: none;
+}
+.friendsPageTitle {
+    text-align: center;
+    padding-bottom: 1em;
+}
+
+.friend_card_cont {
+    align-items: center;
+    padding: 0 10%;
+}
+
+.friend_card {
+    padding: 0.5em 0;
+    text-align: center;
+}
+
+.card_text {
+    padding: 0.2em 0;
+}
+
+.card-body {
+    padding: 0.5em;
+}

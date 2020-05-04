@@ -2,7 +2,7 @@ import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
 
 const httpLink = new HttpLink({
-  uri: 'http://localhost:3001/Graphql',
+  uri: process.env.REACT_APP_GRAPHQL_URL,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -131,7 +131,6 @@ export const postLogin = (username, password) => {
               starting_day
               ending_day
               additional_description
-              weather {temp}
             }
           }
         }
@@ -153,6 +152,158 @@ export const postLogin = (username, password) => {
       mutation {
         UserRemoveFriend (
           id: "${id}" friends: "${friends}"
+        ) {
+          id
+          username
+          email
+          address {
+            street_address
+            locality
+            coordinates {
+              lat
+              lon
+            }
+          }
+          intrests
+          friends {
+            id
+            username
+            email
+            intrests
+            address {
+              locality
+              street_address
+            }
+            reservations {
+              id
+              name {fi en}
+              source_type {id name}
+              info_url
+              location {
+                lat
+                lon
+                address {
+                  locality
+                  street_address
+                  postal_code
+                }
+              }
+            }
+          }
+          reservations {
+            id
+            name {fi en}
+            source_type {id name}
+            info_url
+            location {
+              lat
+              lon
+              address {
+                locality
+                street_address
+                postal_code
+            }
+          }
+        }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserRemoveFriend
+      console.log(usr)
+      return usr
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const modifyUser = (id, email, address, password) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserModify (
+          id: "${id}"
+          email: "${email}"
+          password: "${password}"
+          address: "${address}"
+        ) {
+          id
+          username
+          email
+          address {
+            street_address
+            locality
+            coordinates {
+              lat
+              lon
+            }
+          }
+          intrests
+          friends {
+            id
+            username
+            email
+            intrests
+            address {
+              locality
+              street_address
+            }
+            reservations {
+              id
+              name {fi en}
+              source_type {id name}
+              info_url
+              location {
+                lat
+                lon
+                address {
+                  locality
+                  street_address
+                  postal_code
+                }
+              }
+            }
+          }
+          reservations {
+            id
+            name {fi en}
+            source_type {id name}
+            info_url
+            location {
+              lat
+              lon
+              address {
+                locality
+                street_address
+                postal_code
+            }
+          }
+        }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserModify
+      console.log(usr)
+      return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const addIntrests = (id, intrests) => { 
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserAddIntrest (
+          id: "${id}"
+          intrests: "${intrests}"
         ) {
           id
           username
@@ -207,78 +358,9 @@ export const postLogin = (username, password) => {
       `
     })
     .then(result => {
-      const usr = result.data.UserRemoveFriend
-      console.log(usr)
-      return true
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    });
-  }
-
-  export const modifyUser = (id, email, address, password) => { 
-    return client.mutate({
-      mutation: gql`
-      mutation {
-        UserModify (
-          id: "${id}"
-          email: "${email}"
-          password: "${password}"
-          address: "${address}"
-        ) {
-          id
-          username
-          email
-          address {
-              street_address
-          }
-        }
-      }
-      `
-    })
-    .then(result => {
-      const usr = result.data.UserModify
-      console.log(usr)
-      return true
-    })
-    .catch(err => {
-      console.log(err)
-      return false
-    });
-  }
-
-  export const addIntrests = (id, intrests) => { 
-    return client.mutate({
-      mutation: gql`
-      mutation {
-        UserAddIntrest (
-          id: "${id}"
-          intrests: "${intrests}"
-        ) {
-          username
-          email
-          address {
-            street_address
-            locality
-          }
-          intrests
-          friends {
-            username
-            email
-            intrests
-          }
-          reservations {
-            id
-          }
-        }
-      }
-      `
-    })
-    .then(result => {
       const usr = result.data.UserAddIntrest
       console.log(usr)
-      return true
+      return usr
     })
     .catch(err => {
       console.log(err)
@@ -294,21 +376,54 @@ export const postLogin = (username, password) => {
           id: "${id}"
           intrests: "${intrests}"
         ) {
+          id
           username
           email
           address {
             street_address
             locality
+            coordinates {
+              lat
+              lon
+            }
           }
           intrests
           friends {
+            id
             username
             email
             intrests
+            reservations {
+              id
+              name {fi en}
+              source_type {id name}
+              info_url
+              location {
+                lat
+                lon
+                address {
+                  locality
+                  street_address
+                  postal_code
+                }
+              }
+            }
           }
           reservations {
             id
+            name {fi en}
+            source_type {id name}
+            info_url
+            location {
+              lat
+              lon
+              address {
+                locality
+                street_address
+                postal_code
+            }
           }
+        }
         }
       }
       `
@@ -316,7 +431,7 @@ export const postLogin = (username, password) => {
     .then(result => {
       const usr = result.data.UserRemoveIntrest
       console.log(usr)
-      return true
+      return usr
     })
     .catch(err => {
       console.log(err)
@@ -340,6 +455,115 @@ export const postLogin = (username, password) => {
       const usr = result.data.UserDelete
       console.log(usr)
       return true
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const searchUsers = (nameIncludes) => { 
+    const id = localStorage.getItem('userid');
+    return client.query({
+      query: gql`
+      {
+        users 
+        (
+          excludeId: "${id}"
+          nameIncludes: "${nameIncludes}"
+        ) {
+          id
+          username
+          email
+          address {
+            street_address
+            locality
+          }
+          intrests
+          reservations {
+            id
+            name{fi en}
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      let usr = result.data.users
+      console.log(usr)
+      return usr;
+    })
+    .catch(err => {
+      console.log(err)
+      return false
+    });
+  }
+
+  export const addFriend = (friends) => { 
+    const id = localStorage.getItem('userid');
+    return client.mutate({
+      mutation: gql`
+      mutation {
+        UserAddFriend (
+          id: "${id}",
+          friends: "${friends}",
+        ) {
+          id
+          username
+          email
+          address {
+            street_address
+            locality
+            coordinates {
+              lat
+              lon
+            }
+          }
+          intrests
+          friends {
+            id
+            username
+            email
+            intrests
+            reservations {
+              id
+              name {fi en}
+              source_type {id name}
+              info_url
+              location {
+                lat
+                lon
+                address {
+                  locality
+                  street_address
+                  postal_code
+                }
+              }
+            }
+          }
+          reservations {
+            id
+            name {fi en}
+            source_type {id name}
+            info_url
+            location {
+              lat
+              lon
+              address {
+                locality
+                street_address
+                postal_code
+            }
+          }
+        }
+        }
+      }
+      `
+    })
+    .then(result => {
+      const usr = result.data.UserAddFriend
+      console.log(usr)
+      return usr
     })
     .catch(err => {
       console.log(err)

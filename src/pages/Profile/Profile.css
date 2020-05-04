@@ -126,3 +126,11 @@
     background-color: blue;
     padding: 8px 13px 6px;
 }
+
+.card-body {
+    padding: 0.5em;
+}
+
+.card_text {
+    padding: 0.2em 0;
+}
