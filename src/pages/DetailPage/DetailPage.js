@@ -67,7 +67,7 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="routes" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
             <MainCard ending_day={item.event_dates.ending_day} starting_day={item.event_dates.starting_day} address={item.location.address.street_address}/>
         </Tab>

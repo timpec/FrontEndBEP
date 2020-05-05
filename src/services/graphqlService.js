@@ -27,17 +27,17 @@ const client = new ApolloClient({
     return client.query({
       query: gql`
       {
-        user(id: "${id}") {
-          id
-    reservations {
+      user(id: "${id}") {
       id
-      name {fi}
-      description {
-        intro
-      }
-      location {
-        lat
-        lon
+      reservations {
+        id
+        name {fi}
+        description {
+          intro
+        }
+        location {
+          lat
+          lon
             }
           }
         }
