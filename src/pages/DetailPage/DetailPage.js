@@ -86,7 +86,7 @@ return (
           </div>
         </Tab>
         <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
-            <RouteCard  routes={item.location.route.plan.itineraries}/>
+            <RouteCard routes={item.location.route.plan.itineraries}/>
         </Tab>
         <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null || reservedSuccess ? "reserved" : "notReserved") + ".svg")}/>}>
         {item.reservedById == null || reservedSuccess ? (
