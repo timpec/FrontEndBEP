@@ -4,7 +4,7 @@ import Badge from 'react-bootstrap/Badge';
 import Image from 'react-bootstrap/Image';
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import {getTodayEvents, getEvents} from '../../services/graphqlService';
+import {getTodayEvents, getEvents, getEventsWithString} from '../../services/graphqlService';
 
 import "./MainFeed.css";
 import moment from "moment"
@@ -32,8 +32,9 @@ const redirectToDetailPage = (id) => {
 
 const getSearch = async () => {
   let string = document.getElementById("MainFeedInput").value
+
   if(string.length >= 3) {
-    let data = await getEvents(string);
+    let data = await getEventsWithString(string);
     updateEvents(data);
   } else if(string.length === 0) {
     let data = await getEvents();
@@ -59,7 +60,7 @@ return (
       <h3  className="align-self-center">This week:</h3>
       <div className="d-flex p-1 justify-content-around">
       {todayEvents.map(item => (
-          <Image className="MainFeedThumbNail" onClick={() => {redirectToDetailPage(item.id)}} key={item.id}  src={item.description.images[0].url ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
+          <Image className="MainFeedThumbNail" onClick={() => {redirectToDetailPage(item.id)}} key={item.id}  src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"} rounded />
         ))}
       
       </div>

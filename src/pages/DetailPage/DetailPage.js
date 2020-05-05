@@ -67,7 +67,7 @@ return (
         <div className="list-group-item">
         <h5 className="">{item.name.fi}</h5>
         <img className="MainFeedImage rounded mx-auto d-block" alt="Event" src={item.description.images[0] ? item.description.images[0].url : "https://i.picsum.photos/id/100/50/50.jpg?blur=1"}></img>
-        <Tabs defaultActiveKey="routes" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="main" id="uncontrolled-tab-example">
         <Tab eventKey="main" title={<img alt="main info"src={require("../../assets/info.svg")}/>}>
             <MainCard ending_day={item.event_dates.ending_day} starting_day={item.event_dates.starting_day} address={item.location.address.street_address}/>
         </Tab>
@@ -86,7 +86,7 @@ return (
           </div>
         </Tab>
         <Tab eventKey="routes" title={<img alt="Map to the place" src={require("../../assets/arrow.svg")}/>}>
-            <RouteCard  routes={item.location.route.plan.itineraries}/>
+            <RouteCard routes={item.location.route.plan.itineraries}/>
         </Tab>
         <Tab eventKey="reserved" title={<img alt="if Reserved" src={require("../../assets/"+ (item.reservedById != null || reservedSuccess ? "reserved" : "notReserved") + ".svg")}/>}>
         {item.reservedById == null || reservedSuccess ? (
@@ -113,9 +113,6 @@ return (
           </div>):(
            <div className="d-flex flex-column bd-highlight p-3">
             <p>You have already reserved the event</p>
-            <p>Your reservation: </p>
-            
-            {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}
             <div hidden={!errorMessage} className="alert alert-danger m-3" role="alert">
          Something went wrong!
          </div>
@@ -134,7 +131,7 @@ return (
             item.info_url ? 
             <Button variant="primary" target="_blank" href={item.info_url}>Website</Button>
               :<div>
-               <div className="p-2 bd-highlight">No link provided</div>
+               <h5 className="p-2 bd-highlight">No link provided</h5>
               </div>
             }
           </div>

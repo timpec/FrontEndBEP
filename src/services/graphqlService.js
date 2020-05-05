@@ -27,17 +27,17 @@ const client = new ApolloClient({
     return client.query({
       query: gql`
       {
-        user(id: "${id}") {
-          id
-    reservations {
+      user(id: "${id}") {
       id
-      name {fi}
-      description {
-        intro
-      }
-      location {
-        lat
-        lon
+      reservations {
+        id
+        name {fi}
+        description {
+          intro
+        }
+        location {
+          lat
+          lon
             }
           }
         }
@@ -114,7 +114,7 @@ const client = new ApolloClient({
     return client.query({
       query: gql`
       {
-        events(today: true) {
+        events(today: true, limit:3) {
           id
           description{
             images {
@@ -130,11 +130,51 @@ const client = new ApolloClient({
     });
   }
 
-  export const getEvents = (string) => { 
+  export const getEventsWithString = (string) => {
     return client.query({
       query: gql`
       {
-        events(${string ? "limit:2, nameIncludes:\""+string+"\"" : "limit: 10"}) {
+        events(nameIncludes: "${string}") {
+          id
+          name {
+            fi
+          }
+          reserved {
+            username
+          }
+          location {
+            lat
+            lon
+            address {
+              street_address
+            }
+          }
+          description{
+            images {
+              url
+            }
+          }
+          tags {
+            name
+          }
+          event_dates {
+            starting_day
+            ending_day
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      return(result.data.events)
+    });
+  }
+
+  export const getEvents = (string) => {
+    return client.query({
+      query: gql`
+      {
+        events {
           id
           name {
             fi

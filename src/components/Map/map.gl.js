@@ -129,7 +129,6 @@ export default function Map(props) {
           const HTML = `<p><b>${name}</b></p>
           <p><a href="/DetailPage/${eventId}">More details</a></p>`;
           new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
-          console.log(friendsEvents);
         });
       });
       
@@ -183,8 +182,7 @@ export default function Map(props) {
 
         const { name } = e.features[0].properties;
 
-        const HTML = `<p>Country: <b>${name}</b></p>
-        <button></button`;
+        const HTML = `<p><b>${name}</b></p>`;
         new mapboxgl.Popup().setLngLat(coordinates).setHTML(HTML).addTo(map);
       });
       map.addControl(new mapboxgl.NavigationControl());
