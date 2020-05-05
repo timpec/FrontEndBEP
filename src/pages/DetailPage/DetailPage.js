@@ -113,9 +113,6 @@ return (
           </div>):(
            <div className="d-flex flex-column bd-highlight p-3">
             <p>You have already reserved the event</p>
-            <p>Your reservation: </p>
-            
-            {moment(new Date(parseInt(item.reservedById.date * 1000)).toString()).calendar()}
             <div hidden={!errorMessage} className="alert alert-danger m-3" role="alert">
          Something went wrong!
          </div>
@@ -134,7 +131,7 @@ return (
             item.info_url ? 
             <Button variant="primary" target="_blank" href={item.info_url}>Website</Button>
               :<div>
-               <div className="p-2 bd-highlight">No link provided</div>
+               <h5 className="p-2 bd-highlight">No link provided</h5>
               </div>
             }
           </div>
