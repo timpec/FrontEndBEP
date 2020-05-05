@@ -1,3 +1,4 @@
+// Register page to register new users
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { TextField } from "@material-ui/core";
@@ -19,6 +20,7 @@ export default function Register(props) {
   const [redirectFeed, changeRedirectFeed] = useState(false);
   const [redirectLogin, changeRedirectLogin] = useState(false);
 
+  // Custom email format checker
   const validEmailCheck = () => {
     const regexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (regexp.test(email) !== true) {
@@ -32,12 +34,11 @@ export default function Register(props) {
     }
   }
 
+  // Register a new user if all fields are correct
   const registerAttempt = async () => {
     if (validEmail === true) {
-      console.log(username,password,address,email)
       const user = await postRegister(username,password,address,email)
       if (user === true) {
-        console.log("true")
         redirectToMain()
       } else {
         setRegisterErrorMsg(I18n.t("register.registerError"));

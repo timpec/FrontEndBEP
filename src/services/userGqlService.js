@@ -1,3 +1,4 @@
+// Service for user queries with the backend of the project
 import { ApolloClient, HttpLink, InMemoryCache, gql } from '@apollo/client';
 import { setContext } from 'apollo-link-context';
 
@@ -6,9 +7,9 @@ const httpLink = new HttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token from local storage if it exists
+  // Get the authentication token from local storage if it exists
   const token = localStorage.getItem('token');
-  // return the headers to the context so httpLink can read them
+  // Return the headers to the context so httpLink can read them
   return {
     headers: {
       ...headers,
@@ -73,6 +74,7 @@ export const postLogin = (username, password) => {
     });
   }
 
+  // Get all of the user data with id
   export const getUser = (id) => { 
     return client.query({
       query: gql`
@@ -220,6 +222,7 @@ export const postLogin = (username, password) => {
     });
   }
 
+  // Modifies email, password and/or address of the user
   export const modifyUser = (id, email, address, password) => { 
     return client.mutate({
       mutation: gql`
@@ -462,6 +465,7 @@ export const postLogin = (username, password) => {
     });
   }
 
+  // Search for users that are not the user or his/hers friends already
   export const searchUsers = (nameIncludes) => { 
     const id = localStorage.getItem('userid');
     return client.query({

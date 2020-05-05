@@ -1,3 +1,4 @@
+// Profile page for user data and modifications
 import React, {useEffect} from "react";
 import { Redirect } from "react-router-dom";
 import Card from 'react-bootstrap/Card';
@@ -41,46 +42,43 @@ export default function Profile (props) {
   },[user, address, intrests, friends]);
 
 
+  //Get id from localstorage and delete user
   const deleteFriend = async (friends) => {
     const id = localStorage.getItem('userid');
     let data = await removeFriend(id, friends)
-    console.log(data.friends)
     updateFriends(data.friends)
-    console.log(intrests)
   }
 
+  //Get id from localstorage and modify user
   const editUser= async () => {
     const id = localStorage.getItem('userid');
     const data = await modifyUser(id, emailField, addressField, passwordField);
-    console.log(data)
   }
 
+  //Get id from localstorage and add to intrests array
   const addUserIntrest = async () => {
     const id = localStorage.getItem('userid');
-    console.log(intrestAdd);
     const data = await addIntrests(id, intrestAdd);
-    console.log(data);
     updateIntrest(data.intrests)
   }
 
+  //Get id from localstorage and remove from intrests array
   const removeUserIntrest = async () => {
     const id = localStorage.getItem('userid');
-    console.log(intrestRemove);
     if (intrestRemove !== "") {
       const data = await removeIntrests(id, intrestRemove);
-      console.log(data);
       updateIntrest(data.intrests)
     }
   }
 
+  //Get id from localstorage and delete user and logout
   const deleteAccount = async () => {
     const id = localStorage.getItem('userid');
-    console.log("delete account");
     const data = await removeUser(id);
-    console.log("Account: ", data.username," deleted." )
     logout()
   }
 
+  //Empty localstorage and redirect to login page
     const logout = async () => {
       localStorage.clear()
       changeRedirectLogin(true);

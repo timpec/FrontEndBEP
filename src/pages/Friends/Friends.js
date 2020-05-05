@@ -1,3 +1,4 @@
+// Friends page for looking for new friends
 import React, {useEffect} from "react";
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
@@ -14,25 +15,23 @@ export default function Friends() {
   useEffect(() => {
     const getData = async () => {
       let data = await searchUsers(searchField);
-      console.log(data);
       updateList(data);
     }
     getData();
   },[users]);
 
 
+  // Updates the list when search has input
     const updateSearch = async (searchField) => {
         setSearchField(searchField.target.value);
-        console.log(searchField.target.value)
-        console.log(searchField)
         let data = await searchUsers(searchField)
         updateList(data);
     }
 
+  // Adds a new friend to users friends list
     const addNewFriend = async (friends) => {
         await addFriend(friends);
         let list = await searchUsers(searchField)
-        console.log(list)
         updateList(list)
       }
 

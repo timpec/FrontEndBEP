@@ -1,3 +1,4 @@
+// Login page to log the user in
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { TextField } from "@material-ui/core";
@@ -14,7 +15,6 @@ export default function Login() {
 
   const onUsernameChange = (username) => {
     setUsername(username.target.value);
-    console.log(username.target.value);
     setLoginErrorMsg("");
   }
 
@@ -22,11 +22,10 @@ export default function Login() {
     setPassword(password.target.value);
   }
 
+  // Login the user if everything is correct
   const loginAttempt = async () => {
     const user = await postLogin(username,password)
-    console.log(user)
     if (user === true) {
-      console.log("true")
       changeRedirect(true);
     } else {
       setLoginErrorMsg(I18n.t("login.loginError"));
