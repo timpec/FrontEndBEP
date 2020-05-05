@@ -14,6 +14,7 @@ import DetailPage from "./pages/DetailPage/DetailPage";
 import { BrowserRouter as Router, Route, withRouter } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import HttpsRedirect from 'react-https-redirect';
 
 
 
@@ -101,9 +102,11 @@ export default function App() {
   })
 
   return (
+    <HttpsRedirect>
     <BrowserRouter>
       <Main />    
     </BrowserRouter>
+    </HttpsRedirect>
     )
 }
 /** KYTKE PÄÄLLE KUN ON AIKA 
