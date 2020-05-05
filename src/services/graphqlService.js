@@ -130,6 +130,46 @@ const client = new ApolloClient({
     });
   }
 
+  export const getEventsWithString = (string) => {
+    return client.query({
+      query: gql`
+      {
+        events(nameIncludes: "${string}") {
+          id
+          name {
+            fi
+          }
+          reserved {
+            username
+          }
+          location {
+            lat
+            lon
+            address {
+              street_address
+            }
+          }
+          description{
+            images {
+              url
+            }
+          }
+          tags {
+            name
+          }
+          event_dates {
+            starting_day
+            ending_day
+          }
+        }
+      }
+      `
+    })
+    .then(result => {
+      return(result.data.events)
+    });
+  }
+
   export const getEvents = (string) => {
     return client.query({
       query: gql`
