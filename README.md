@@ -26,6 +26,7 @@ Features:
 - User with CRUD functionalities.
 - Add/Remove intrests from users (events have tags e.g. "music").
 - Search for other users by username, email or locality.
+- See what event friends are attending.
 - Add/Remove friends.
 
 
