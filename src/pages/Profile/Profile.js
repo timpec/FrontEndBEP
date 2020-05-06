@@ -25,6 +25,8 @@ export default function Profile (props) {
 
   const [intrestAdd, setIntrestAdd] = React.useState("");
   const [intrestRemove, setIntrestRemove] = React.useState("");
+  const [eventId, setEventId] = React.useState("");
+  const [detailPage, setdetailPage] = React.useState(false);
 
     const [redirectLogin, changeRedirectLogin] = React.useState(false);
   
@@ -44,41 +46,40 @@ export default function Profile (props) {
   const deleteFriend = async (friends) => {
     const id = localStorage.getItem('userid');
     let data = await removeFriend(id, friends)
-    console.log(data.friends)
     updateFriends(data.friends)
-    console.log(intrests)
   }
 
   const editUser= async () => {
     const id = localStorage.getItem('userid');
     const data = await modifyUser(id, emailField, addressField, passwordField);
-    console.log(data)
   }
 
   const addUserIntrest = async () => {
     const id = localStorage.getItem('userid');
-    console.log(intrestAdd);
     const data = await addIntrests(id, intrestAdd);
-    console.log(data);
     updateIntrest(data.intrests)
   }
 
   const removeUserIntrest = async () => {
     const id = localStorage.getItem('userid');
-    console.log(intrestRemove);
     if (intrestRemove !== "") {
       const data = await removeIntrests(id, intrestRemove);
-      console.log(data);
       updateIntrest(data.intrests)
     }
   }
 
   const deleteAccount = async () => {
     const id = localStorage.getItem('userid');
-    console.log("delete account");
     const data = await removeUser(id);
-    console.log("Account: ", data.username," deleted." )
     logout()
+  }
+
+  const redirectToDetailPage = (id) => {
+    setEventId(id);
+    setdetailPage(true);
+  }
+  if (detailPage) {
+    return <Redirect push to={"/DetailPage/"+eventId} />
   }
 
     const logout = async () => {
@@ -207,6 +208,22 @@ export default function Profile (props) {
                     <Badge key={item.username} pill variant="secondary">{i}</Badge>
                   ))}
                   </div>
+                      </Card.Body>
+                      <Card.Body>
+                      <div>
+                      <Accordion>
+                        <Accordion.Toggle as={Button} variant="link" eventKey="5">{I18n.t("profile.reservationsF")}</Accordion.Toggle>
+                        <Accordion.Collapse eventKey="5">
+                          <Card className="friend_card" id="intrest_add_col"> 
+                            {item.reservations.map(i => (
+                            <Card.Body key={i.id} onClick={() => {redirectToDetailPage(i.id)}}>
+                              <h7 className="font-weight-bold">{i.name.fi}</h7>
+                            </Card.Body>
+                            ))}
+                          </Card>
+                        </Accordion.Collapse>
+                      </Accordion>
+                      </div>
                       </Card.Body>
                       <div className="deletefriend_btnContainer">
                         <button
