@@ -22,7 +22,7 @@ export default function Map(props) {
         container: mapboxElRef.current,
         style: "mapbox://styles/mapbox/navigation-preview-day-v4",
         //OTA LOCALSTORAGESTA SINULLE
-        center: [25.012341,60.782132], // initial geo location
+        center: [24.953813,60.183742], // initial geo location
         zoom: 12, // initial zoom
         });
 
@@ -226,7 +226,6 @@ export default function Map(props) {
         <div className="d-flex flex-row justify-content-around p-3">
       <button type="button" onClick={(() => {pressedButton(1)})} className="btn btn-primary">Events</button>
       <button type="button" onClick={(() => {pressedButton(2)})} className="btn btn-primary">Your Events</button>
-      <button type="button" onClick={(() => {pressedButton(3)})} className="btn btn-primary">friends Events</button>
       </div>
       )
       : <div></div>}
