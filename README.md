@@ -31,7 +31,7 @@ Features:
 
 ## Installation
 
-With npm.
+Install node modules with npm.
 
 ```bash
 npm i
@@ -39,7 +39,7 @@ npm i
 
 ## Launching the app
 
-Start the back-end project to have a working backend then start the front-end of the app with
+Start the back-end project to have a working backend then start the front-end of the app.
 
 ```bash
 npm start
